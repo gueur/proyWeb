@@ -5,7 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mudanzas.Models.Auth;
 using Mudanzas.Models;
+using Mudanzas.Helpers;
 
 namespace Mudanzas.Controllers
 {
@@ -33,5 +35,13 @@ namespace Mudanzas.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        [HttpPost("/check")]
+        public async Task<ActionResult<string>> Check([FromBody]Autenticacion auth)
+        {
+            string passEncrypted = EncryptHelper.encryptString(auth.password);
+
+            return passEncrypted;
+        }
+
     }
 }
