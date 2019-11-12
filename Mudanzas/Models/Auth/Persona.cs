@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 
 namespace Mudanzas.Models.Auth
 {
-    public class Persona
+    public abstract class Persona
     {
+
+        public int id { get; set; }
         public string nombre { get; set; }
         public string primerApellido { get; set; }
         public string segundoApellido { get; set; }
@@ -15,5 +17,7 @@ namespace Mudanzas.Models.Auth
         public string correoElectronico { get; set; }
         public string token { get; set; }
 
+
+        public abstract string getRole();
     }
 }

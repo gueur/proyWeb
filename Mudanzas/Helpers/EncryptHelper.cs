@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 
 namespace Mudanzas.Helpers
 {
-    public class EncryptHelper
+    public static class EncryptHelper
     {
 
         //TODO: Hacer que esta key la tome de la configuracion o de las variables de entorno del sistema

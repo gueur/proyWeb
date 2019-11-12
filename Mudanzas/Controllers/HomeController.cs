@@ -8,9 +8,11 @@ using Microsoft.Extensions.Logging;
 using Mudanzas.Models.Auth;
 using Mudanzas.Models;
 using Mudanzas.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Mudanzas.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -42,6 +44,31 @@ namespace Mudanzas.Controllers
 
             return passEncrypted;
         }
+        [HttpPost("/jwt")]
+        public async Task<ActionResult<string>> JWT()
+        {
+            Usuario user = new Usuario { id= 12 , correoElectronico="HumbaPumbaMV@gmail.com", direccion="Calle de la tundra # 2416 col prados del sol", nombre="Manuel", primerApellido="Villegas", segundoApellido="Leyva", telefono="6674714557"};
+            string jwt = JWTHelper.convertoUsuarioToJWT(user);
+
+            return jwt;
+        }
+
+        [Authorize]
+        [HttpGet("/onlyauth")]
+        public async Task<ActionResult<string>> Autenticado()
+        {
+
+            return "Si está autenticado"; 
+        }
+
+        [Authorize(Roles = Rol.Admin)]
+        [HttpGet("/onlyauthadmin")]
+        public async Task<ActionResult<string>> AutenticadoAdmin()
+        {
+
+            return "Si está autenticado";
+        }
+
 
     }
 }
