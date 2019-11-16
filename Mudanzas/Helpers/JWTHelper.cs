@@ -14,7 +14,7 @@ namespace Mudanzas.Helpers
     {
 
         private const string JWTKEY = "JPkv6ZbLGEDpTFgu";
-        public static string convertoUsuarioToJWT(Usuario user)
+        public static string convertoUsuarioToJWT(Cliente user)
         {
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             byte[] key = Encoding.ASCII.GetBytes(JWTKEY);

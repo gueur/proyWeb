@@ -18,6 +18,7 @@ namespace Mudanzas.Models.Auth
         public string token { get; set; }
 
 
+
         public abstract string getRole();
     }
 }

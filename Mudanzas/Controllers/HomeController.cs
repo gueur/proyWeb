@@ -44,15 +44,17 @@ namespace Mudanzas.Controllers
 
             return passEncrypted;
         }
+        // Metodo para poder entrar como quieran
+        [AllowAnonymous]
         [HttpPost("/jwt")]
         public async Task<ActionResult<string>> JWT()
         {
-            Usuario user = new Usuario { id= 12 , correoElectronico="HumbaPumbaMV@gmail.com", direccion="Calle de la tundra # 2416 col prados del sol", nombre="Manuel", primerApellido="Villegas", segundoApellido="Leyva", telefono="6674714557"};
+            Cliente user = new Cliente { id= 12 , correoElectronico="HumbaPumbaMV@gmail.com", direccion="Calle de la tundra # 2416 col prados del sol", nombre="Manuel", primerApellido="Villegas", segundoApellido="Leyva", telefono="6674714557"};
             string jwt = JWTHelper.convertoUsuarioToJWT(user);
 
             return jwt;
         }
-
+        //Metodo para cualquiera, pero con un token valido
         [Authorize]
         [HttpGet("/onlyauth")]
         public async Task<ActionResult<string>> Autenticado()
@@ -61,6 +63,7 @@ namespace Mudanzas.Controllers
             return "Si está autenticado"; 
         }
 
+        //Con esto es solo para X rol (Se pueden agregar más)
         [Authorize(Roles = Rol.Admin)]
         [HttpGet("/onlyauthadmin")]
         public async Task<ActionResult<string>> AutenticadoAdmin()
