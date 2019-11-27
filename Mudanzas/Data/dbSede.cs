@@ -100,5 +100,46 @@ namespace Mudanzas.Data
             return sede;
         }
 
+        // POST SEDE
+
+        public Sede guardarSede(Sede sede)
+        {
+           // string query = $"INSERT INTO SEDE (alias, ciudad, estado, latitud, longitud, tipoSede, idAdministrador, pertenece) VALUES ( 'MAZ','Mazatlan','Sinaloa', 23.237738, -106.438588, 2, 1, 'CLN' )";
+            string query = $"INSERT INTO SEDE (alias, ciudad, estado, latitud, longitud, tipoSede, idAdministrador, pertenece) VALUES ( '{sede.alias}','{sede.ciudad}','{sede.estado}', {sede.latitud}, {sede.longitud}, {sede.tipoSede}, {sede.idAdministrador}, '{sede.pertenece}' )";
+            using (SqlCommand com = new SqlCommand(query, db))
+            {
+                //TODO: Agregar en la tabla cliente la ciudad
+                //TODO: Agregar verificar de usuario (prospecto)
+                com.CommandType = System.Data.CommandType.Text;
+                com.ExecuteNonQuery();
+                db.Close();
+            }
+
+            return sede;
+        }
+
+
+        public Sede RegistrarCliente(Sede sede)
+        {
+            string query = $"INSERT INTO SEDE (alias, ciudad, estado, latitud, longitud, tipoSede, idAdministrador, pertenece) VALUES ( '{sede.alias}','{sede.ciudad}','{sede.estado}', {sede.latitud}, {sede.longitud}, {sede.tipoSede}, {sede.idAdministrador}, '{sede.pertenece}' )";
+
+            using (SqlCommand com = new SqlCommand(query, db))
+            {
+                //TODO: Agregar en la tabla cliente la ciudad
+                //TODO: Agregar verificar de usuario (prospecto)
+                com.CommandType = System.Data.CommandType.Text;
+                com.ExecuteNonQuery();
+                db.Close();
+            }
+
+            return sede;
+        }
+
+
+
+
+
+
+
     }
 }

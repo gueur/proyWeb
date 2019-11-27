@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Mudanzas.Helpers.Requests;
 using Mudanzas.Models;
+using Mudanzas.Models.Auth;
+using Newtonsoft.Json.Linq;
 
 namespace Mudanzas.Controllers
 {
@@ -33,14 +36,12 @@ namespace Mudanzas.Controllers
             return modelo.obtenerSede(alias);
         }
 
-        // PUT: api/Sede/NAV
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{alias}")]
-        public void putSedes()
+        [HttpPost("/cliente/registro")]
+        public async Task<ActionResult<Sede>> ClienteRegistro([FromBody]RegistroRequest registro)
         {
-            modelo.putSede();
-           
+            Sede sede = modelo.RegistrarNuevoCliente(registro);
+
+            return sede;
         }
 
 

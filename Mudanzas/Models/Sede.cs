@@ -25,11 +25,6 @@ namespace Mudanzas.Models
         public double longitud { get; set; }
         public string  tipoSede { get; set; }
         public int idAdministrador { get; set; }
-        private string pertenece { get; set; }
-
-        public string getPertenece()
-        {
-            return this.pertenece;
-        }
+        public string pertenece { get; set; }
     }
 }
