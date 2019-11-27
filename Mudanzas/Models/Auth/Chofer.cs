@@ -14,12 +14,12 @@ namespace Mudanzas.Models.Auth
 
         public Chofer(int id, string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico)
         {
-            this.id = id;
-            this.nombre = nombre;
-            this.primerApellido = primerApellido;
-            this.segundoApellido= segundoApellido;
-            this.telefono = telefono;
-            this.correoElectronico = correoElectronico;
+            this.setId(id);
+            this.setNombre(nombre);
+            this.setPrimerApellido(primerApellido);
+            this.setSegundoApellido(segundoApellido);
+            this.setTelefono(telefono);
+            this.setCorreoElectronico(correoElectronico);
         }
 
        

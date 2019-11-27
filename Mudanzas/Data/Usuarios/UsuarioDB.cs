@@ -65,7 +65,7 @@ namespace Mudanzas.Data
         public Cliente AutorizarCliente(string correoElectronico, string password)
         {
             Cliente user = null;
-            using (SqlCommand com = new SqlCommand($"SELECT TOP 1 u.id, u.nombre ,u.primerApellido, u.segundoApellido, u.contrasena, u.telefono, u.correoelectronico, u.token, c.direccion  FROM USUARIO u inner join cliente c on u.id = c.id where u.correoElectronico='{correoElectronico}' and u.contrasena='{password}'", db))
+            using (SqlCommand com = new SqlCommand($"SELECT TOP 1 u.id, u.nombre ,u.primerApellido, u.segundoApellido, u.contrasena, u.telefono, u.correoelectronico, u.token, c.direccion FROM USUARIO u inner join cliente c on u.id = c.id where u.correoElectronico='{correoElectronico}' and u.contrasena='{password}'", db))
             {
                 SqlDataReader reader = null;
                 try
@@ -80,8 +80,10 @@ namespace Mudanzas.Data
                         string segundoApellido = reader.GetString(3);
                         string telefono = reader.GetString(5);
                         string direccion = reader.GetString(8);
+                        //TODO: Agregar la ciudad
+                        //string ciudad = reader.GetString(9);
                         //string token = reader.GetString(7);
-                        user = new Cliente(id, nombre, primerApellido, segundoApellido, telefono, correoElectronico,direccion);
+                        user = new Cliente(id, nombre, primerApellido, segundoApellido, telefono, correoElectronico, null, direccion,"");
                     }
                 }
                 finally
@@ -123,6 +125,21 @@ namespace Mudanzas.Data
 
             }
             return user;
+        }
+
+        public Cliente RegistrarCliente(Cliente cliente)
+        {
+            string query = $"INSERT INTO PROSPECTO (nombre, primerApellido, segundoApellido, ciudad, telefono, correoElectronico) VALUES('{cliente.getNombre()}', '{cliente.getPrimerApellido()}', '{cliente.getSegundoApellido()}', '{cliente.getCiudad()}','{cliente.getTelefono()}', '{cliente.getCorreoElectronico()}')";
+            using (SqlCommand com = new SqlCommand(query, db))
+            {
+                //TODO: Agregar en la tabla cliente la ciudad
+                //TODO: Agregar verificar de usuario (prospecto)
+                com.CommandType = System.Data.CommandType.Text;
+                com.ExecuteNonQuery();
+                db.Close();
+            }
+
+            return cliente;
         }
     }
 }

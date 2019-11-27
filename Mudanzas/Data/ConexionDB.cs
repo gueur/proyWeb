@@ -9,7 +9,7 @@ namespace Mudanzas.Data
     public class ConexionDB
     {
         private static SqlConnection conn;
-        private static string connectionString = "Server=DESKTOP-AJEBCRN;Database=ProyWeb2;Trusted_Connection=True;";
+        private static string connectionString = "Data Source=proyweb.cdrkjhnwuysd.us-west-2.rds.amazonaws.com;Initial Catalog=proyweb;User ID=admin;Password=adminadmin1234;";
 
         public static SqlConnection GetConnection()
         {

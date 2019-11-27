@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Mudanzas.Helpers.Requests;
 using Mudanzas.Models;
 using Mudanzas.Models.Auth;
+using Newtonsoft.Json.Linq;
 
 namespace Mudanzas.Controllers
 {
@@ -35,7 +36,7 @@ namespace Mudanzas.Controllers
             return Unauthorized();
         }
         [HttpPost("/cliente/login")]
-        public async Task<ActionResult<Usuario>> DocClienteLogin([FromBody]LoginRequest login)
+        public async Task<ActionResult<Usuario>> DoClienteLogin([FromBody]LoginRequest login)
         {
             Usuario usuario = modelo.AutenticarCliente(login);
             if (usuario != null)
@@ -43,6 +44,14 @@ namespace Mudanzas.Controllers
                 return usuario;
             }
             return Unauthorized();
+        }
+
+        [HttpPost("/cliente/registro")]
+        public async Task<ActionResult<Usuario>> ClienteRegistro([FromBody]RegistroRequest registro)
+        {
+           Cliente cliente =  modelo.RegistrarNuevoCliente(registro);
+
+            return cliente;
         }
     }
 }

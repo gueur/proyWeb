@@ -50,5 +50,13 @@ namespace Mudanzas.Models
             }
             return null;
         }
+
+        public Cliente RegistrarNuevoCliente(RegistroRequest registro)
+        {
+            //TODO: modificarle parametros
+            Cliente nuevoCliente= new Cliente(registro.nombre, registro.primerApellido, registro.segundoApellido, registro.telefono, registro.correoElectronico, EncryptHelper.encryptString(registro.password), registro.direccion, registro.ciudad);
+            db.RegistrarCliente(nuevoCliente);
+            return nuevoCliente;
+        }
     }
 }

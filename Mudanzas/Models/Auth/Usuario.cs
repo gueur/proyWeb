@@ -8,14 +8,14 @@ namespace Mudanzas.Models.Auth
     public abstract class Usuario
     {
 
-        public int id { get; set; }
-        public string nombre { get; set; }
-        public string primerApellido { get; set; }
-        public string segundoApellido { get; set; }
-        public string password { get; set; }
-        public string telefono { get; set; }
-        public string correoElectronico { get; set; }
-        public string token { get; set; }
+        private int id { get; set; }
+        private string nombre { get; set; }
+        private string primerApellido { get; set; }
+        private string segundoApellido { get; set; }
+        private string password { get; set; }
+        private string telefono { get; set; }
+        private string correoElectronico { get; set; }
+        private string token { get; set; }
 
         public abstract string getRole();
         public string getToken()
@@ -26,5 +26,68 @@ namespace Mudanzas.Models.Auth
         {
             this.token = token;
         }
+
+        public int getId()
+        {
+            return this.id;
+        }
+        public void setId(int id)
+        {
+            this.id= id;
+        }
+
+        public string getNombre()
+        {
+            return this.nombre;
+        }
+        public void setNombre(string nombre)
+        {
+            this.nombre = nombre;
+        }
+
+        public string getPrimerApellido()
+        {
+            return this.primerApellido;
+        }
+        public void setPrimerApellido(string primerApellido)
+        {
+            this.primerApellido = primerApellido;
+        }
+
+        public string getSegundoApellido()
+        {
+            return this.segundoApellido;
+        }
+        public void setSegundoApellido(string segundoApellido)
+        {
+            this.segundoApellido = segundoApellido;
+        }
+
+        public string getPassword()
+        {
+            return this.password;
+        }
+        public void setPassword(string password)
+        {
+            this.password = password;
+        }
+
+        public string getTelefono()
+        {
+            return this.telefono;
+        }
+        public void setTelefono(string telefono)
+        {
+            this.telefono = telefono;
+        }
+        public string getCorreoElectronico()
+        {
+            return this.correoElectronico;
+        }
+        public void setCorreoElectronico(string correoElectronico)
+        {
+            this.correoElectronico = telefono;
+        }
+
     }
 }

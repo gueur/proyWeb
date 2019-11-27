@@ -14,13 +14,13 @@ namespace Mudanzas.Models.Auth
         }
         public Administrador(int id, string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string sede)
         {
-            this.id = id;
-            this.nombre = nombre;
-            this.primerApellido = primerApellido;
-            this.segundoApellido = segundoApellido;
-            this.telefono = telefono;
-            this.correoElectronico = correoElectronico;
-            this.sede = sede;
+            this.setId(id);
+            this.setNombre(nombre);
+            this.setPrimerApellido(primerApellido);
+            this.setSegundoApellido(segundoApellido);
+            this.setTelefono(telefono);
+            this.setCorreoElectronico(correoElectronico);
+            this.setSede(sede);
         }
 
         public string getSede()

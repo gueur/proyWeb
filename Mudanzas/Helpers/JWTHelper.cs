@@ -22,10 +22,10 @@ namespace Mudanzas.Helpers
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     //TODO: Poner aqui los datos necesarios para que guarde el token
-                      new Claim("id", user.id.ToString()),
+                      new Claim("id", user.getId().ToString()),
                       new Claim("rol", user.getRole()),
-                      new Claim("coreroElectronico", user.correoElectronico),
-                      new Claim("nombre", $"{user.nombre} {user.primerApellido} {user.segundoApellido}")
+                      new Claim("coreroElectronico", user.getCorreoElectronico()),
+                      new Claim("nombre", $"{user.getNombre()} {user.getPrimerApellido()} {user.getSegundoApellido()}")
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
