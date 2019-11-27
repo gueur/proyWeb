@@ -86,7 +86,7 @@ namespace Mudanzas.Models.Auth
         }
         public void setCorreoElectronico(string correoElectronico)
         {
-            this.correoElectronico = telefono;
+            this.correoElectronico = correoElectronico;
         }
 
     }

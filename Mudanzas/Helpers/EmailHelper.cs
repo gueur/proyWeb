@@ -22,6 +22,16 @@ namespace Mudanzas.Helpers
                 to: new Twilio.Types.PhoneNumber("+526674714557")
                 );
         }
+        public static void sendSMSCodigoVerificacion(string numero, string numeroVerificacion)
+        {
+            TwilioClient.Init(accountSid, authToken);
+
+            var message = MessageResource.Create(
+                body: $"Este es un mensaje de verificación de ProyWeb por favor ingrese este código {numeroVerificacion} en la aplicación.",
+                from: new Twilio.Types.PhoneNumber("+12053410192"),
+                to: new Twilio.Types.PhoneNumber($"+52{numero}")
+                );
+        }
 
 
     }

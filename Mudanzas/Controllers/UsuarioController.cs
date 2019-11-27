@@ -53,5 +53,12 @@ namespace Mudanzas.Controllers
 
             return cliente;
         }
+        //Metodo para verificar que no es un robot y que proceda
+        [HttpPost("/cliente/verificar")]
+        public async Task<ActionResult<Usuario>> VerificarRegistro([FromBody]VerificacionRequest verificacion)
+        {
+            Cliente cliente = modelo.VerificarProspecto(verificacion.codigoVerificacion);
+            return cliente;
+        }
     }
 }

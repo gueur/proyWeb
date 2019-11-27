@@ -54,9 +54,18 @@ namespace Mudanzas.Models
         public Cliente RegistrarNuevoCliente(RegistroRequest registro)
         {
             //TODO: modificarle parametros
-            Cliente nuevoCliente= new Cliente(registro.nombre, registro.primerApellido, registro.segundoApellido, registro.telefono, registro.correoElectronico, EncryptHelper.encryptString(registro.password), registro.direccion, registro.ciudad);
-            db.RegistrarCliente(nuevoCliente);
+            Cliente nuevoCliente= new Cliente(registro.nombre, registro.primerApellido, registro.segundoApellido, registro.telefono, registro.correoElectronico, registro.direccion, $"{new Random().Next(10000000, 99999999)}");
+            db.RegistrarProspecto(nuevoCliente);
+            EmailHelper.sendSMSCodigoVerificacion(nuevoCliente.getTelefono(), nuevoCliente.getToken());
             return nuevoCliente;
+        }
+        public Cliente VerificarProspecto(string codigoVerificacion)
+        {
+            //TODO: Modificar esto para que regrese algo el cliente
+            Cliente prospecto = new Cliente();
+            prospecto.setToken(codigoVerificacion);
+            db.VerificacionProspecto(prospecto);
+            return prospecto;
         }
     }
 }

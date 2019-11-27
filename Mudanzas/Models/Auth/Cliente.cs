@@ -7,13 +7,18 @@ namespace Mudanzas.Models.Auth
 {
     public class Cliente: Usuario
     {
-        private string direccion { get; set; }
+        private string direccion;
         private string ciudad;
         public override string getRole()
         {
             return Rol.Cliente;
         }
 
+
+        public Cliente()
+        {
+
+        }
         public Cliente(int id, string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string password, string direccion, string ciudad)
         {
             this.setId(id);
@@ -37,6 +42,25 @@ namespace Mudanzas.Models.Auth
             this.setDireccion(direccion);
             this.setCiudad(ciudad);
             this.setPassword(password);
+        }
+        public Cliente(string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string direccion)
+        {
+            this.setNombre(nombre);
+            this.setPrimerApellido(primerApellido);
+            this.setSegundoApellido(segundoApellido);
+            this.setTelefono(telefono);
+            this.setCorreoElectronico(correoElectronico);
+            this.setDireccion(direccion);
+        }
+         public Cliente(string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string direccion, string token)
+        {
+            this.setNombre(nombre);
+            this.setPrimerApellido(primerApellido);
+            this.setSegundoApellido(segundoApellido);
+            this.setTelefono(telefono);
+            this.setCorreoElectronico(correoElectronico);
+            this.setDireccion(direccion);
+            this.setToken(token);
         }
 
         public string getDireccion()

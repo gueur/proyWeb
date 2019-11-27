@@ -127,18 +127,31 @@ namespace Mudanzas.Data
             return user;
         }
 
-        public Cliente RegistrarCliente(Cliente cliente)
+        public Cliente RegistrarProspecto(Cliente cliente)
         {
-            string query = $"INSERT INTO PROSPECTO (nombre, primerApellido, segundoApellido, ciudad, telefono, correoElectronico) VALUES('{cliente.getNombre()}', '{cliente.getPrimerApellido()}', '{cliente.getSegundoApellido()}', '{cliente.getCiudad()}','{cliente.getTelefono()}', '{cliente.getCorreoElectronico()}')";
+            string query = $"INSERT INTO PROSPECTO (nombre, primerApellido, segundoApellido, telefono, correoElectronico, direccion, codigoVerificacion) VALUES('{cliente.getNombre()}', '{cliente.getPrimerApellido()}', '{cliente.getSegundoApellido()}', '{cliente.getTelefono()}', '{cliente.getCorreoElectronico()}', '{cliente.getDireccion()}', '{cliente.getToken()}')";
             using (SqlCommand com = new SqlCommand(query, db))
             {
-                //TODO: Agregar en la tabla cliente la ciudad
                 //TODO: Agregar verificar de usuario (prospecto)
                 com.CommandType = System.Data.CommandType.Text;
                 com.ExecuteNonQuery();
                 db.Close();
             }
 
+            return cliente;
+        }
+
+        public Cliente VerificacionProspecto(Cliente cliente) 
+        {
+            string query = $"UPDATE PROSPECTO SET codigoVerificacion = null where codigoVerificacion={cliente.getToken()}";
+
+            using(SqlCommand com = new SqlCommand(query, db))
+            {
+                //TODO: Verificar si existe (regresar algo para saber si hizo el cambio o no)
+                var f=com.ExecuteNonQuery();
+                db.Close();
+            }
+            //TODO: Hacer que regrese el prospecto para llenarlo completamente
             return cliente;
         }
     }
