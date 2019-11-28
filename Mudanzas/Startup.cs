@@ -15,7 +15,6 @@ using Mudanzas.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.IdentityModel.Logging;
-
 namespace Mudanzas
 {
     public class Startup
@@ -32,7 +31,7 @@ namespace Mudanzas
         {
             //Anadimos cors para poder hacer peticiones de todos lados (para el front)
             services.AddCors();
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             IdentityModelEventSource.ShowPII = true;
             // Cargando settings globales
             var appSettingsSection = Configuration.GetSection("AppSettings");

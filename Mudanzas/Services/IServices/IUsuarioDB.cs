@@ -14,6 +14,9 @@ namespace Mudanzas.Services.IServices
         Usuario BuscarUsuarioNombre(string nombre, string apellido);
         Usuario BuscarUsuarioId(string id);
         Usuario actualizarUsuario(Usuario user);
+        Cliente RegistrarProspecto(Cliente prospecto);
+        Cliente VerificacionProspecto(Cliente prospecto);
+        Usuario RegistrarChofer(Chofer chofer);
     }
 }
   

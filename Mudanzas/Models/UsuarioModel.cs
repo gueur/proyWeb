@@ -18,6 +18,7 @@ namespace Mudanzas.Models
         {
             db = new UsuarioDB();
         }
+        //TODO: Agregar encriptado a las contrasenas
         public Usuario AutenticarChofer(LoginRequest usuarioLogin)
         {
             Chofer chofer = db.AutorizarChofer(usuarioLogin.correoElectronico, usuarioLogin.password);
@@ -27,6 +28,14 @@ namespace Mudanzas.Models
                 return chofer;
 
             }
+            return null;
+        }
+
+        public Chofer RegistrarChofer(RegistroChoferRequest choferRequest)
+        {
+            //TODO: Checar esto
+            Chofer chofer = new Chofer();
+            db.RegistrarChofer(chofer);
             return null;
         }
 
@@ -49,6 +58,23 @@ namespace Mudanzas.Models
                 return admin;
             }
             return null;
+        }
+
+        public Cliente RegistrarNuevoCliente(RegistroRequest registro)
+        {
+            //TODO: modificarle parametros
+            Cliente nuevoCliente= new Cliente(registro.nombre, registro.primerApellido, registro.segundoApellido, registro.telefono, registro.correoElectronico, registro.direccion, $"{new Random().Next(10000000, 99999999)}");
+            db.RegistrarProspecto(nuevoCliente);
+            EmailHelper.sendSMSCodigoVerificacion(nuevoCliente.getTelefono(), nuevoCliente.getToken());
+            return nuevoCliente;
+        }
+        public Cliente VerificarProspecto(string codigoVerificacion)
+        {
+            //TODO: Modificar esto para que regrese algo el cliente
+            Cliente prospecto = new Cliente();
+            prospecto.setToken(codigoVerificacion);
+            db.VerificacionProspecto(prospecto);
+            return prospecto;
         }
     }
 }

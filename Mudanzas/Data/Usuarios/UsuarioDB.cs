@@ -35,7 +35,7 @@ namespace Mudanzas.Data
         public Chofer AutorizarChofer(string correoElectronico, string password)
         {
             Chofer user = null;
-            using (SqlCommand com = new SqlCommand($"SELECT TOP 1 u.id, u.nombre ,u.primerApellido, u.segundoApellido, u.contrasena, u.telefono, u.correoelectronico, u.token  FROM USUARIO u inner join chofer c on u.id = c.id where u.correoElectronico='{correoElectronico}' and u.contrasena='{password}'",db))
+            using (SqlCommand com = new SqlCommand($"SELECT TOP 1 u.id, u.nombre ,u.primerApellido, u.segundoApellido, u.contrasena, u.telefono, u.correoelectronico, u.token  FROM USUARIO u inner join chofer c on u.id = c.idUsuario where u.correoElectronico='{correoElectronico}' and u.contrasena='{password}'",db))
             {
                 SqlDataReader reader=null;
                 try
@@ -55,7 +55,8 @@ namespace Mudanzas.Data
                 }
                 finally
                 {
-                    reader.Close();
+                    if(reader!=null)
+                        reader.Close();
                 }
                 
             }
@@ -65,7 +66,8 @@ namespace Mudanzas.Data
         public Cliente AutorizarCliente(string correoElectronico, string password)
         {
             Cliente user = null;
-            using (SqlCommand com = new SqlCommand($"SELECT TOP 1 u.id, u.nombre ,u.primerApellido, u.segundoApellido, u.contrasena, u.telefono, u.correoelectronico, u.token, c.direccion  FROM USUARIO u inner join cliente c on u.id = c.id where u.correoElectronico='{correoElectronico}' and u.contrasena='{password}'", db))
+            string query = $"SELECT TOP 1 u.id, u.nombre ,u.primerApellido, u.segundoApellido, u.contrasena, u.telefono, u.correoelectronico, u.token, c.direccion FROM USUARIO u inner join cliente c on u.id = c.idUsuario where u.correoElectronico='{correoElectronico}' and u.contrasena='{password}'";
+            using (SqlCommand com = new SqlCommand(query, db))
             {
                 SqlDataReader reader = null;
                 try
@@ -80,13 +82,16 @@ namespace Mudanzas.Data
                         string segundoApellido = reader.GetString(3);
                         string telefono = reader.GetString(5);
                         string direccion = reader.GetString(8);
+                        //TODO: Agregar la ciudad
+                        //string ciudad = reader.GetString(9);
                         //string token = reader.GetString(7);
-                        user = new Cliente(id, nombre, primerApellido, segundoApellido, telefono, correoElectronico,direccion);
+                        user = new Cliente(id, nombre, primerApellido, segundoApellido, telefono, correoElectronico, null, direccion,"");
                     }
                 }
                 finally
-                {
-                    reader.Close();
+                {   
+                    if(reader!=null)
+                        reader.Close();
                 }
 
             }
@@ -97,7 +102,7 @@ namespace Mudanzas.Data
         {
             Administrador user = null;
             string query = $"SELECT TOP 1 u.id, u.nombre ,u.primerApellido, u.segundoApellido, u.contrasena, u.telefono, u.correoelectronico, u.token , c.direccion FROM USUARIO u inner join chofer c on u.id = c.id where u.correoElectronico={correoElectronico} and u.contrasena={password}";
-            using (SqlCommand com = new SqlCommand($"SELECT TOP 1 u.id, u.nombre ,u.primerApellido, u.segundoApellido, u.contrasena, u.telefono, u.correoelectronico, u.token, a.tipoAdministrador  FROM USUARIO u inner join administrador a on u.id = a.id where u.correoElectronico='{correoElectronico}' and u.contrasena='{password}'", db))
+            using (SqlCommand com = new SqlCommand($"SELECT TOP 1 u.id, u.nombre ,u.primerApellido, u.segundoApellido, u.contrasena, u.telefono, u.correoelectronico, u.token, a.tipoAdministrador  FROM USUARIO u inner join administrador a on u.id = a.idUsuario where u.correoElectronico='{correoElectronico}' and u.contrasena='{password}'", db))
             {
                 SqlDataReader reader = null;
                 try
@@ -118,11 +123,47 @@ namespace Mudanzas.Data
                 }
                 finally
                 {
-                    reader.Close();
+                    if(reader!=null)
+                        reader.Close();
                 }
 
             }
             return user;
+        }
+
+        public Cliente RegistrarProspecto(Cliente cliente)
+        {
+            string query = $"INSERT INTO PROSPECTO (nombre, primerApellido, segundoApellido, telefono, correoElectronico, direccion, codigoVerificacion) VALUES('{cliente.getNombre()}', '{cliente.getPrimerApellido()}', '{cliente.getSegundoApellido()}', '{cliente.getTelefono()}', '{cliente.getCorreoElectronico()}', '{cliente.getDireccion()}', '{cliente.getToken()}')";
+            using (SqlCommand com = new SqlCommand(query, db))
+            {
+                //TODO: Agregar verificar de usuario (prospecto)
+                com.CommandType = System.Data.CommandType.Text;
+                com.ExecuteNonQuery();
+                db.Close();
+            }
+
+            return cliente;
+        }
+
+        public Cliente VerificacionProspecto(Cliente cliente) 
+        {
+            string query = $"UPDATE PROSPECTO SET codigoVerificacion = null where codigoVerificacion={cliente.getToken()}";
+
+            using(SqlCommand com = new SqlCommand(query, db))
+            {
+                //TODO: Verificar si existe (regresar algo para saber si hizo el cambio o no)
+                var f=com.ExecuteNonQuery();
+                db.Close();
+            }
+            //TODO: Hacer que regrese el prospecto para llenarlo completamente
+            return cliente;
+        }
+
+        public Usuario RegistrarChofer(Chofer chofer)
+        {
+            //TODO: Implementar esto
+            //string query 
+            throw new NotImplementedException();
         }
     }
 }
