@@ -36,20 +36,5 @@ namespace Mudanzas.Controllers
             return modelo.obtenerSede(alias);
         }
 
-        [HttpPost("/cliente/registro")]
-        public async Task<ActionResult<Sede>> ClienteRegistro([FromBody]RegistroRequest registro)
-        {
-            Sede sede = modelo.RegistrarNuevoCliente(registro);
-
-            return sede;
-        }
-
-
-
-
-
-
-
-
     }
 }

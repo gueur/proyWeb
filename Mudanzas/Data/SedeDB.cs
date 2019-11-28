@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 
 namespace Mudanzas.Data
 {
-    public class dbSede
+    public class SedeDB: ISedeDB
     {
         public readonly SqlConnection db = ConexionDB.GetConnection();
 
@@ -44,19 +44,19 @@ namespace Mudanzas.Data
         }
 
         // GET/ID Sede
-        public Sede obtenerSede(string aliass)
+        public Sede obtenerSede(string alias)
         {
             //TODO: Obtener todas las Sedes
             //Sede sede = List<Sede>;
             Sede sede = null;
-            using (SqlCommand com = new SqlCommand($"SELECT Top 1 * FROM Sede where alias='{aliass}' ", db))
+            using (SqlCommand com = new SqlCommand($"SELECT Top 1 * FROM Sede where alias='{alias}' ", db))
             {
                 SqlDataReader reader = com.ExecuteReader();
                 if (reader.HasRows)
                 {
                     while (reader.Read())
                     {
-                        string alias = reader.GetString(0);
+                        string localAlias = reader.GetString(0);
                         string ciudad = reader.GetString(1);
                         string estado = reader.GetString(2);
                         double latitud = reader.GetDouble(3);
@@ -64,7 +64,7 @@ namespace Mudanzas.Data
                         string tipoSede = reader.GetString(5);
                         int idAministrador = reader.GetInt32(6);
                         string pertence = reader.GetString(7);
-                        sede = new Sede(alias, ciudad, estado, latitud, longitud, tipoSede, idAministrador, pertence);
+                        sede = new Sede(localAlias, ciudad, estado, latitud, longitud, tipoSede, idAministrador, pertence);
                     }
                 }
                 reader.Close();
@@ -117,29 +117,5 @@ namespace Mudanzas.Data
 
             return sede;
         }
-
-
-        public Sede RegistrarCliente(Sede sede)
-        {
-            string query = $"INSERT INTO SEDE (alias, ciudad, estado, latitud, longitud, tipoSede, idAdministrador, pertenece) VALUES ( '{sede.alias}','{sede.ciudad}','{sede.estado}', {sede.latitud}, {sede.longitud}, {sede.tipoSede}, {sede.idAdministrador}, '{sede.pertenece}' )";
-
-            using (SqlCommand com = new SqlCommand(query, db))
-            {
-                //TODO: Agregar en la tabla cliente la ciudad
-                //TODO: Agregar verificar de usuario (prospecto)
-                com.CommandType = System.Data.CommandType.Text;
-                com.ExecuteNonQuery();
-                db.Close();
-            }
-
-            return sede;
-        }
-
-
-
-
-
-
-
     }
 }

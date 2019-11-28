@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 
 namespace Mudanzas.Data
 {
-    public class dbCamion
+    public class CamionDB: ICamionDB
     {
         public readonly SqlConnection db = ConexionDB.GetConnection();
 

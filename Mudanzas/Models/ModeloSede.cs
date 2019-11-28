@@ -11,10 +11,10 @@ namespace Mudanzas.Models
 {
     public class ModeloSede
     {
-        private dbSede bd;
+        private ISedeDB bd;
         public ModeloSede()
         {
-            bd = new dbSede();
+            bd = new SedeDB();
         }
         // GET ALIAS
         public List<Sede> obtenerSedes()
@@ -33,20 +33,5 @@ namespace Mudanzas.Models
             bd.guardarSede(nuevaSede);
             return nuevaSede;
         }
-        public Sede RegistrarNuevoCliente(RegistroRequest sede)
-        {
-            //TODO: modificarle parametros
-            Sede nuevaSede = new Sede(sede.alias, sede.ciudad, sede.estado, sede.latitud, sede.longitud, sede.tipoSede, sede.idAdministrador, sede.pertenece);
-
-            bd.RegistrarCliente(nuevaSede);
-            return nuevaSede;
-        }
-
-
-
-
-
-
-
     }
 }
