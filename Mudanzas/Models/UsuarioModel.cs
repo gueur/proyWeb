@@ -18,6 +18,7 @@ namespace Mudanzas.Models
         {
             db = new UsuarioDB();
         }
+        //TODO: Agregar encriptado a las contrasenas
         public Usuario AutenticarChofer(LoginRequest usuarioLogin)
         {
             Chofer chofer = db.AutorizarChofer(usuarioLogin.correoElectronico, usuarioLogin.password);
@@ -27,6 +28,14 @@ namespace Mudanzas.Models
                 return chofer;
 
             }
+            return null;
+        }
+
+        public Chofer RegistrarChofer(RegistroChoferRequest choferRequest)
+        {
+            //TODO: Checar esto
+            Chofer chofer = new Chofer();
+            db.RegistrarChofer(chofer);
             return null;
         }
 

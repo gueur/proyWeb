@@ -8,6 +8,7 @@ using Mudanzas.Helpers.Requests;
 using Mudanzas.Models;
 using Mudanzas.Models.Auth;
 using Newtonsoft.Json.Linq;
+using Mudanzas.Helpers;
 
 namespace Mudanzas.Controllers
 {
@@ -16,49 +17,75 @@ namespace Mudanzas.Controllers
         private UsuarioModel modelo = new UsuarioModel();
 
         [HttpPost("/chofer/login")]
-        public async Task<ActionResult<Usuario>> DoChoferLogin([FromBody]LoginRequest login)
+        public async Task<ActionResult<LoginResponse>> DoChoferLogin([FromBody]LoginRequest login)
         {
             Usuario usuario = modelo.AutenticarChofer(login);
             if (usuario != null)
             {
-                return usuario;
+                return new LoginResponse(usuario);
             }
             return Unauthorized();
         }
+        [HttpPost("/chofer/registro")]
+        public async Task<ActionResult<Chofer>> RegistrarChofer([FromBody] RegistroChoferRequest registroRequest)
+        {
+            Chofer chofer = modelo.RegistrarChofer(registroRequest);
+            return chofer;
+        }
+
         [HttpPost("/admin/login")]
-        public async Task<ActionResult<Usuario>> DoAdminLogin([FromBody]LoginRequest login)
+        public async Task<ActionResult<LoginResponse>> DoAdminLogin([FromBody]LoginRequest login)
         {
             Usuario usuario = modelo.AutenticarAdmin(login);
             if (usuario != null)
             {
-                return usuario;
+                return new LoginResponse(usuario);
+
             }
             return Unauthorized();
         }
         [HttpPost("/cliente/login")]
-        public async Task<ActionResult<Usuario>> DoClienteLogin([FromBody]LoginRequest login)
+        public async Task<ActionResult<LoginResponse>> DoClienteLogin([FromBody]LoginRequest login)
         {
             Usuario usuario = modelo.AutenticarCliente(login);
             if (usuario != null)
             {
-                return usuario;
+                return new LoginResponse(usuario);
             }
             return Unauthorized();
         }
 
-        [HttpPost("/cliente/registro")]
-        public async Task<ActionResult<Usuario>> ClienteRegistro([FromBody]RegistroRequest registro)
+        [HttpPost("/prospecto/registro")]
+        public async Task<ActionResult<Usuario>> ProspectoRegistro([FromBody]RegistroRequest registro)
         {
            Cliente cliente =  modelo.RegistrarNuevoCliente(registro);
 
             return cliente;
         }
         //Metodo para verificar que no es un robot y que proceda
-        [HttpPost("/cliente/verificar")]
+        [HttpPost("/prospecto/verificar")]
         public async Task<ActionResult<Usuario>> VerificarRegistro([FromBody]VerificacionRequest verificacion)
         {
             Cliente cliente = modelo.VerificarProspecto(verificacion.codigoVerificacion);
             return cliente;
         }
+
+        [HttpPost("/cliente/registro")]
+        public async Task<ActionResult<Usuario>> RegistrarCliente([FromBody] HacerClienteRequest clienteRequest)
+        {
+            Cliente cliente = new Cliente();
+            return cliente;
+        }
+
+        [HttpPost("/send")]
+        public async Task<ActionResult<string>> EnviarCorreo()
+        {
+            EmailHelper.sendEmail("manuelvillegasley@gmail.com", "Manuel Villegas el guapo");
+            return "";
+        }
     }
+
+
+
+   
 }

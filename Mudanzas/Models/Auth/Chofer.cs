@@ -11,7 +11,10 @@ namespace Mudanzas.Models.Auth
         {
             return Rol.Chofer;
         }
+        public Chofer()
+        {
 
+        }
         public Chofer(int id, string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico)
         {
             this.setId(id);

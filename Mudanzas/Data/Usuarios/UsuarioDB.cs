@@ -35,7 +35,7 @@ namespace Mudanzas.Data
         public Chofer AutorizarChofer(string correoElectronico, string password)
         {
             Chofer user = null;
-            using (SqlCommand com = new SqlCommand($"SELECT TOP 1 u.id, u.nombre ,u.primerApellido, u.segundoApellido, u.contrasena, u.telefono, u.correoelectronico, u.token  FROM USUARIO u inner join chofer c on u.id = c.id where u.correoElectronico='{correoElectronico}' and u.contrasena='{password}'",db))
+            using (SqlCommand com = new SqlCommand($"SELECT TOP 1 u.id, u.nombre ,u.primerApellido, u.segundoApellido, u.contrasena, u.telefono, u.correoelectronico, u.token  FROM USUARIO u inner join chofer c on u.id = c.idUsuario where u.correoElectronico='{correoElectronico}' and u.contrasena='{password}'",db))
             {
                 SqlDataReader reader=null;
                 try
@@ -55,7 +55,8 @@ namespace Mudanzas.Data
                 }
                 finally
                 {
-                    reader.Close();
+                    if(reader!=null)
+                        reader.Close();
                 }
                 
             }
@@ -65,7 +66,8 @@ namespace Mudanzas.Data
         public Cliente AutorizarCliente(string correoElectronico, string password)
         {
             Cliente user = null;
-            using (SqlCommand com = new SqlCommand($"SELECT TOP 1 u.id, u.nombre ,u.primerApellido, u.segundoApellido, u.contrasena, u.telefono, u.correoelectronico, u.token, c.direccion FROM USUARIO u inner join cliente c on u.id = c.id where u.correoElectronico='{correoElectronico}' and u.contrasena='{password}'", db))
+            string query = $"SELECT TOP 1 u.id, u.nombre ,u.primerApellido, u.segundoApellido, u.contrasena, u.telefono, u.correoelectronico, u.token, c.direccion FROM USUARIO u inner join cliente c on u.id = c.idUsuario where u.correoElectronico='{correoElectronico}' and u.contrasena='{password}'";
+            using (SqlCommand com = new SqlCommand(query, db))
             {
                 SqlDataReader reader = null;
                 try
@@ -87,8 +89,9 @@ namespace Mudanzas.Data
                     }
                 }
                 finally
-                {
-                    reader.Close();
+                {   
+                    if(reader!=null)
+                        reader.Close();
                 }
 
             }
@@ -99,7 +102,7 @@ namespace Mudanzas.Data
         {
             Administrador user = null;
             string query = $"SELECT TOP 1 u.id, u.nombre ,u.primerApellido, u.segundoApellido, u.contrasena, u.telefono, u.correoelectronico, u.token , c.direccion FROM USUARIO u inner join chofer c on u.id = c.id where u.correoElectronico={correoElectronico} and u.contrasena={password}";
-            using (SqlCommand com = new SqlCommand($"SELECT TOP 1 u.id, u.nombre ,u.primerApellido, u.segundoApellido, u.contrasena, u.telefono, u.correoelectronico, u.token, a.tipoAdministrador  FROM USUARIO u inner join administrador a on u.id = a.id where u.correoElectronico='{correoElectronico}' and u.contrasena='{password}'", db))
+            using (SqlCommand com = new SqlCommand($"SELECT TOP 1 u.id, u.nombre ,u.primerApellido, u.segundoApellido, u.contrasena, u.telefono, u.correoelectronico, u.token, a.tipoAdministrador  FROM USUARIO u inner join administrador a on u.id = a.idUsuario where u.correoElectronico='{correoElectronico}' and u.contrasena='{password}'", db))
             {
                 SqlDataReader reader = null;
                 try
@@ -120,7 +123,8 @@ namespace Mudanzas.Data
                 }
                 finally
                 {
-                    reader.Close();
+                    if(reader!=null)
+                        reader.Close();
                 }
 
             }
@@ -153,6 +157,13 @@ namespace Mudanzas.Data
             }
             //TODO: Hacer que regrese el prospecto para llenarlo completamente
             return cliente;
+        }
+
+        public Usuario RegistrarChofer(Chofer chofer)
+        {
+            //TODO: Implementar esto
+            //string query 
+            throw new NotImplementedException();
         }
     }
 }
