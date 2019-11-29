@@ -16,17 +16,16 @@ namespace Mudanzas.Controllers
     [ApiController]
     public class ReservacionController : ControllerBase
     {
-        ModeloCamion modelo;
+        ModeloReservacion modelo;
         public ReservacionController()
         {
-            modelo = new ModeloCamion();
+            modelo = new ModeloReservacion();
         }
-
-        // GET: api/Camion
-        [HttpGet]
-        public string obtenerCamiones()
+        // POST: api/Camion
+        [HttpPost]
+        public void postExceso([FromBody]ExcesoRequest folio)
         {
-            return "paps";
+           modelo.postExceso(folio);
         }
 
 

@@ -7,6 +7,9 @@ using Mudanzas.Helpers.Requests;
 using Mudanzas.Services.IServices;
 using Mudanzas.Data;
 using Mudanzas.Helpers;
+using System;  
+using System.IO;  
+using System.Net;  
 
 namespace Mudanzas.Models
 {
@@ -20,6 +23,9 @@ namespace Mudanzas.Models
         // GET ALIAS
         public List<Sede> obtenerSedes()
         {
+            
+            
+            
             return bd.obtenerSedes();
         }
         // GET SEDES/ALIAS
@@ -35,6 +41,29 @@ namespace Mudanzas.Models
             //bd.RegistrarCamion(nuevoCamion);
              
             bd.RegistraSede(nuevaSede);
+
+            List<Sede> listaSedes = bd.obtenerSedes();
+            foreach(Sede sede in listaSedes){
+                
+                // Logica para sacar la Distancia 
+                // Agregar en tabla DistanciaSede.
+                // Agregar a table como bulkInsert
+                
+            
+            }
+             // Create a request for the URL.   
+            WebRequest request = WebRequest.Create(
+              "https://docs.microsoft.com");
+            // If required by the server, set the credentials.  
+            request.Credentials = CredentialCache.DefaultCredentials;
+            
+            // Get the response.  
+            WebResponse response = request.GetResponse();
+            // Display the status.  
+            Console.WriteLine(((HttpWebResponse)response).StatusDescription);
+            
+            
+               
             return nuevaSede;
         }
     }

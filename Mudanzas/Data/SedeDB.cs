@@ -50,7 +50,7 @@ namespace Mudanzas.Data
             //TODO: Obtener todas las Sedes
             //Sede sede = List<Sede>;
             Sede sede = null;
-            using (SqlCommand com = new SqlCommand($"SELECT Top 1 * FROM Sede where alias='{alias}' ", db))
+            using (SqlCommand com = new SqlCommand($"SELECT Top 1 * FROM Sede where id=1 ", db))
             {
                 SqlDataReader reader = com.ExecuteReader();
                 if (reader.HasRows)
