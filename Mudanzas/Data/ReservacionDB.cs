@@ -18,7 +18,7 @@ namespace Mudanzas.Data
         {
 
             //string query = $"SP_ALTACAMIONES {folio}";
-            string query = $"EXEC SPLAPIZ @Folio = {folio}";
+            string query = $"EXEC SP_REGISTRAEXCESO @Folio = {folio}";
             using (SqlCommand com = new SqlCommand(query, db))
             {
                 com.ExecuteNonQuery();
