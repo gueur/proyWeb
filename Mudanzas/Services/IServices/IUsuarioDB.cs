@@ -16,6 +16,7 @@ namespace Mudanzas.Services.IServices
         Usuario actualizarUsuario(Usuario user);
         Cliente RegistrarProspecto(Cliente prospecto);
         Cliente VerificacionProspecto(Cliente prospecto);
+        Cliente MoverProspectoACliente(int prospectoId);
         Usuario RegistrarChofer(Chofer chofer);
     }
 }

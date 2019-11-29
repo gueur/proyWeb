@@ -19,14 +19,14 @@ namespace Mudanzas.Helpers
 
 
 
-        public async static void sendEmail(string correoElectronico, string nombre)
+        public async static void sendEmail(string correoElectronico,string nombre, string emailHtml)
         {
             var client = new SendGridClient(emailApiKey);
             var from = new EmailAddress("humbapumbamv@gmail.com","Mudanzas Proyweb");
             var subject = "Bienvenido a envio de correos sendGrid";
             var to = new EmailAddress(correoElectronico, nombre);
             var plainTextContent = "Ejemplo de correo perron de sendgrid";
-            var htmlContent = "<br>Estámos en c# a ver que pasa</br>";
+            var htmlContent = emailHtml;
             var email= MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(email);
 

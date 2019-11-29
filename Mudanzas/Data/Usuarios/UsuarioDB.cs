@@ -2,6 +2,7 @@
 using Mudanzas.Services.IServices;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -164,6 +165,22 @@ namespace Mudanzas.Data
             //TODO: Implementar esto
             //string query 
             throw new NotImplementedException();
+        }
+
+        public Cliente MoverProspectoACliente(int prospectoId)
+        {
+            Cliente c = new Cliente();
+            using (SqlCommand com = new SqlCommand("altaClientes", db))
+            {
+                //TODO: Verificar si existe (regresar algo para saber si hizo el cambio o no)
+                com.CommandType = CommandType.StoredProcedure;
+                com.Parameters.Add(new SqlParameter("@idProspecto", prospectoId));
+                var f = com.ExecuteNonQuery();
+                //TODO: Hacer la validacion si se hizo correctamente
+                db.Close();
+            }
+
+            return c;
         }
     }
 }

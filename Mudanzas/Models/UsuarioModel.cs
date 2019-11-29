@@ -6,7 +6,11 @@ using Mudanzas.Helpers.Requests;
 using Mudanzas.Services.IServices;
 using Mudanzas.Data;
 using Mudanzas.Helpers;
+<<<<<<< HEAD
 using Mudanzas.Models;
+=======
+using Mudanzas.Helpers.Templates;
+>>>>>>> Agregado template de correos
 
 namespace Mudanzas.Models
 {
@@ -61,12 +65,19 @@ namespace Mudanzas.Models
             return null;
         }
 
+        public Cliente RegistrarCliente(int idProspecto)
+        {
+            Cliente c = db.MoverProspectoACliente(idProspecto);
+            return c;
+        }
         public Cliente RegistrarNuevoCliente(RegistroRequest registro)
         {
             //TODO: modificarle parametros
             Cliente nuevoCliente= new Cliente(registro.nombre, registro.primerApellido, registro.segundoApellido, registro.telefono, registro.correoElectronico, registro.direccion, $"{new Random().Next(10000000, 99999999)}");
             db.RegistrarProspecto(nuevoCliente);
-            EmailHelper.sendSMSCodigoVerificacion(nuevoCliente.getTelefono(), nuevoCliente.getToken());
+            string email =  UsuarioEmailTemplate.bienvenidoProspecto($"{nuevoCliente.getNombre()} {nuevoCliente.getPrimerApellido()}", nuevoCliente.getToken(), "http://www.proyweb.com.mx");
+            EmailHelper.sendEmail(nuevoCliente.getCorreoElectronico(), $"{nuevoCliente.getNombre()} {nuevoCliente.getPrimerApellido()}", email);
+            // EmailHelper.sendSMSCodigoVerificacion(nuevoCliente.getTelefono(), nuevoCliente.getToken());
             return nuevoCliente;
         }
         public Cliente VerificarProspecto(string codigoVerificacion)

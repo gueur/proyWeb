@@ -70,19 +70,31 @@ namespace Mudanzas.Controllers
             return cliente;
         }
 
+
+        //[Authorize(Roles = Rol.Admin)]
         [HttpPost("/cliente/registro")]
         public async Task<ActionResult<Usuario>> RegistrarCliente([FromBody] HacerClienteRequest clienteRequest)
         {
-            Cliente cliente = new Cliente();
-            return cliente;
+
+            Cliente cliente = null;
+            cliente = modelo.RegistrarCliente(clienteRequest.prospectoId);
+            if (cliente != null)
+            {
+                //Enviar correo
+
+                return cliente;
+            }
+            return BadRequest();
         }
 
         [HttpPost("/send")]
         public async Task<ActionResult<string>> EnviarCorreo()
         {
-            EmailHelper.sendEmail("manuelvillegasley@gmail.com", "Manuel Villegas el guapo");
+  //          Templates.UsuarioEmailTemplate.bienvenidoProspecto(nombre, numeroVerificacion, "http://www.proyweb.com.mx");
+//            EmailHelper.sendEmail("manuelvillegasley@gmail.com", "Manuel Villegas el guapo",email);
             return "";
         }
+
     }
 
 
