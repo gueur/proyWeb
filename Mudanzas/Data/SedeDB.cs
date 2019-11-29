@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Mudanzas.Models;
+using System.Data;
 
 namespace Mudanzas.Data
 {
@@ -100,32 +101,21 @@ namespace Mudanzas.Data
             return sede;
         }
 
-        // POST SEDE
-
-       /* public Sede guardarSede(Sede sede)
-        {
-           // string query = $"INSERT INTO SEDE (alias, ciudad, estado, latitud, longitud, tipoSede, idAdministrador, pertenece) VALUES ( 'MAZ','Mazatlan','Sinaloa', 23.237738, -106.438588, 2, 1, 'CLN' )";
-            string query = $"INSERT INTO SEDE (alias, ciudad, estado, latitud, longitud, tipoSede, idAdministrador, pertenece) VALUES ( '{sede.alias}','{sede.ciudad}','{sede.estado}', {sede.latitud}, {sede.longitud}, {sede.tipoSede}, {sede.idAdministrador}, '{sede.pertenece}' )";
-            using (SqlCommand com = new SqlCommand(query, db))
-            {
-                //TODO: Agregar en la tabla cliente la ciudad
-                //TODO: Agregar verificar de usuario (prospecto)
-                com.CommandType = System.Data.CommandType.Text;
-                com.ExecuteNonQuery();
-                db.Close();
-            }
-
-            return sede;
-        }*/
+       
           // POST/ID Camion
         public Sede RegistraSede(Sede sede)
         {
-            // string query = $"INSERT INTO CAMION (nombre, primerApellido, segundoApellido, telefono, correoElectronico, direccion, codigoVerificacion) VALUES('{cliente.getNombre()}', '{cliente.getPrimerApellido()}', '{cliente.getSegundoApellido()}', '{cliente.getTelefono()}', '{cliente.getCorreoElectronico()}', '{cliente.getDireccion()}', '{cliente.getToken()}')";
-            //string query = $"SP_ALTACAMIONES '{camion.tipoCamion}',{camion.kilometraje}, {camion.capacidadPeso}, '{camion.tipoCombustible}',{camion.volumen}, '{camion.placas}'";
-            string query = $"INSERT INTO SEDE (id, alias, ciudad, estado, latitud, longitud, tipoSede, pertenece) VALUES (1,'MAZ','Mazatlan','Sinaloa', 23.237738, -106.438588, 1, 'CLN' )";
-            using (SqlCommand com = new SqlCommand(query, db))
+           
+            using (SqlCommand com = new SqlCommand("SP_ALTASEDES", db))
             {
-                com.ExecuteNonQuery();
+                com.CommandType = CommandType.StoredProcedure;
+                com.Parameters.Add(new SqlParameter("@alias", sede.alias));
+                com.Parameters.Add(new SqlParameter("@ciudad", sede.ciudad));
+                com.Parameters.Add(new SqlParameter("@estado", sede.estado));
+                com.Parameters.Add(new SqlParameter("@latitud", sede.latitud));
+                com.Parameters.Add(new SqlParameter("@longitud", sede.longitud));
+                com.Parameters.Add(new SqlParameter("@pertenece", sede.pertenece));
+                com.BeginExecuteNonQuery();
                 db.Close();
             }
             return sede;
