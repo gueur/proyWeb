@@ -87,6 +87,22 @@ namespace Mudanzas.Controllers
             return BadRequest();
         }
 
+        [HttpPost("/usuario/cambiarpassword")]
+        public async Task<ActionResult<Usuario>> CambiarPassword([FromBody] CambiarPasswordRequest cambiarPasswordRequest)
+        {
+            Usuario user = modelo.CambiarPassword(cambiarPasswordRequest.password, cambiarPasswordRequest.token);
+            if (user != null)
+                return user;
+            return Unauthorized();
+        }
+
+        [HttpPost("/usuario/olvidopassword")]
+        public async Task<ActionResult<Usuario>> OlvidoPassword([FromBody] OlvidoPasswordRequest olvidoPasswordRequest)
+        {
+            modelo.OlvidoPassword(olvidoPasswordRequest.correoElectronico);
+            return new Chofer();
+        }
+
         [HttpPost("/send")]
         public async Task<ActionResult<string>> EnviarCorreo()
         {

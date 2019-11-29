@@ -88,5 +88,24 @@ namespace Mudanzas.Models
             db.VerificacionProspecto(prospecto);
             return prospecto;
         }
+
+        public Usuario CambiarPassword(string password, string token)
+        {
+            //TODO: Implementarlo bien, no jalla el CheckJWT
+            if (JWTHelper.CheckJWT(token))
+            {
+                Usuario usuario = db.CambiarPassword(EncryptHelper.encryptString(password), token);
+                return usuario;
+            }
+
+            return null;
+        }
+
+        public void OlvidoPassword(string correoElectronico)
+        {
+            string token = JWTHelper.convertTokenUrl(correoElectronico);
+            db.OlvidoPassword(correoElectronico, token);
+            
+        }
     }
 }

@@ -11,6 +11,8 @@ namespace Mudanzas.Services.IServices
         Chofer AutorizarChofer(string correoElectronico, string password);
         Cliente AutorizarCliente(string correoElectronico, string password);
         Administrador AutorizarAdministrador(string correoElectronico, string password);
+        Usuario CambiarPassword(string password, string token);
+        Usuario OlvidoPassword(string correoElectronico, string token);
         Usuario BuscarUsuarioNombre(string nombre, string apellido);
         Usuario BuscarUsuarioId(string id);
         Usuario actualizarUsuario(Usuario user);

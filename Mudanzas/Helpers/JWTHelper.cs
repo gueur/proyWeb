@@ -37,6 +37,52 @@ namespace Mudanzas.Helpers
             return jwtToken;
         }
 
-        
+        public static string convertTokenUrl(string correoElectronico)
+        {
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            byte[] key = Encoding.ASCII.GetBytes(JWTKEY);
+            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim("correoElectronico", correoElectronico)
+                }),
+                Expires = DateTime.UtcNow.AddMinutes(15),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            //Creamos el token
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            string jwtToken = tokenHandler.WriteToken(token);
+
+            return jwtToken;
+
+        }
+
+        public static bool CheckJWT(string jwt)
+        {
+            try
+            {
+
+            byte[] key = Encoding.ASCII.GetBytes(JWTKEY);
+            TokenValidationParameters validationParameters = new TokenValidationParameters
+            {
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = false
+            };
+            SecurityToken validatedToken;
+            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+            var user = handler.ValidateToken(jwt, validationParameters, out validatedToken);
+            if(user.Claims.Count() == 0)
+                return false;
+            return true;
+            }
+                catch(Exception e)
+            {
+                return false;
+            }
+        }
+
+
     }
 }

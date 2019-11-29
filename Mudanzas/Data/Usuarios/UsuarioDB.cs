@@ -182,5 +182,36 @@ namespace Mudanzas.Data
 
             return c;
         }
+
+        public Usuario CambiarPassword(string password, string token)
+        {
+            //TODO: Modificar el regreso
+            string query = "SP_ChangePass";
+            using (SqlCommand com = new SqlCommand(query, db))
+            {
+                com.CommandType = CommandType.StoredProcedure;
+                com.Parameters.Add(new SqlParameter("@password", password));
+                com.Parameters.Add(new SqlParameter("@token", token));
+                com.ExecuteNonQuery();
+                db.Close();
+            }
+            return null;
+        }
+
+        public Usuario OlvidoPassword(string correoElectronico, string token)
+        {
+
+            string query = "SP_OlvidoPass";
+            using (SqlCommand com = new SqlCommand(query, db))
+            {
+                com.CommandType = CommandType.StoredProcedure;
+                com.Parameters.Add(new SqlParameter("@correoElectronico", correoElectronico));
+                com.Parameters.Add(new SqlParameter("@token", token));
+                com.ExecuteNonQuery();
+                db.Close();
+            }
+            //TODO: Modificar el regreso
+            return null;
+        }
     }
 }
