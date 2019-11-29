@@ -39,10 +39,14 @@ namespace Mudanzas.Controllers
         
         // POST: api/Sede
         [HttpPost]
-        public async Task<ActionResult<Sede>> SedeRegistro([FromBody]SedeRequest sedee)
+        public async Task<ActionResult<SedeRequest>> SedeRegistro([FromBody]SedeRequest sedee)
         {
             Sede sede = modelo.RegistraSede(sedee);
-            return sede;
+            if (sede != null)
+            {
+                return new SedeRequest(sede);
+            }
+            return BadRequest();
         }
 
     }

@@ -7,7 +7,7 @@ namespace Mudanzas.Models
 {
     public class Sede
     {
-        public Sede(int id, string alias, string ciudad, string estado, double latitud, double longitud, string tipoSede, string pertenece)
+        public Sede(int id, string alias, string ciudad, string estado, double latitud, double longitud, string tipoSede, int pertenece)
         {
             this.id = id;
             this.alias = alias;
@@ -25,6 +25,6 @@ namespace Mudanzas.Models
         public double latitud { get; set; }
         public double longitud { get; set; }
         public string tipoSede { get; set; }
-        public string pertenece { get; set; }
+        public int pertenece { get; set; }
     }
 }
