@@ -35,7 +35,7 @@ namespace Mudanzas.Data
                         double latitud = reader.GetDouble(4);
                         double longitud = reader.GetDouble(5);
                         string tipoSede = reader.GetString(6);
-                        string pertence = reader.GetString(7);
+                        int pertence = reader.GetInt32(7);
                         sede.Add(new Sede(id, alias, ciudad, estado, latitud, longitud, tipoSede, pertence));
                     }
                 }   
@@ -64,7 +64,8 @@ namespace Mudanzas.Data
                         double latitud = reader.GetDouble(4);
                         double longitud = reader.GetDouble(5);
                         string tipoSede = reader.GetString(6);
-                        string pertence = reader.GetString(7);
+                        int pertence = reader.GetInt32(7);
+
                         sede = new Sede(id, localalias, ciudad, estado, latitud, longitud, tipoSede, pertence);
                     }
                 }
@@ -92,7 +93,7 @@ namespace Mudanzas.Data
                         double latitud = reader.GetDouble(4);
                         double longitud = reader.GetDouble(5);
                         string tipoSede = reader.GetString(6);
-                        string pertence = reader.GetString(7);
+                        int pertence = reader.GetInt32(7);
                         sede = new Sede(id, alias, ciudad, estado, latitud, longitud, tipoSede, pertence);
                     }
                 }
@@ -115,7 +116,13 @@ namespace Mudanzas.Data
                 com.Parameters.Add(new SqlParameter("@latitud", sede.latitud));
                 com.Parameters.Add(new SqlParameter("@longitud", sede.longitud));
                 com.Parameters.Add(new SqlParameter("@pertenece", sede.pertenece));
-                com.BeginExecuteNonQuery();
+                SqlDataReader reader = com.ExecuteReader();
+                if (reader.RecordsAffected== 0)
+                {
+                    //Se hizo correctamente
+                    sede=null;
+                }
+                //TODO: Manejar el error cuando no se creo la sede
                 db.Close();
             }
             return sede;
