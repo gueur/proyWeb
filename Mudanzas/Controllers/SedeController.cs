@@ -37,7 +37,7 @@ namespace Mudanzas.Controllers
             return modelo.obtenerSede(alias);
         }
         
-        // POST: api/Camion
+        // POST: api/Sede
         [HttpPost]
         public async Task<ActionResult<Sede>> SedeRegistro([FromBody]SedeRequest sedee)
         {
