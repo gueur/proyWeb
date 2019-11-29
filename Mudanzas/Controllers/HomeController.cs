@@ -22,9 +22,10 @@ namespace Mudanzas.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        [HttpGet("/")]
+        public async Task<ActionResult<string>> Index()
         {
-            return null;
+            return "Esto es una prueba de SSL Aqui bien chida, es solo la API";
         }
 
         public IActionResult Privacy()
