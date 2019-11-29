@@ -10,6 +10,6 @@ namespace Mudanzas.Services.IServices
         List<Sede> obtenerSedes();
         Sede obtenerSede(string alias);
         Sede putSede();
-        Sede guardarSede(Sede sede);
+        Sede RegistraSede(Sede sede);
     }
 }

@@ -8,6 +8,7 @@ using Mudanzas.Helpers.Requests;
 using Mudanzas.Models;
 using Mudanzas.Models.Auth;
 using Newtonsoft.Json.Linq;
+using Mudanzas.Helpers.Requests;
 
 namespace Mudanzas.Controllers
 {
@@ -34,6 +35,14 @@ namespace Mudanzas.Controllers
         public Sede obtenerSede(string alias)
         {
             return modelo.obtenerSede(alias);
+        }
+        
+        // POST: api/Camion
+        [HttpPost]
+        public async Task<ActionResult<Sede>> SedeRegistro([FromBody]SedeRequest sedee)
+        {
+            Sede sede = modelo.RegistraSede(sedee);
+            return sede;
         }
 
     }

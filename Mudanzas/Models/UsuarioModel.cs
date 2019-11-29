@@ -6,6 +6,7 @@ using Mudanzas.Helpers.Requests;
 using Mudanzas.Services.IServices;
 using Mudanzas.Data;
 using Mudanzas.Helpers;
+using Mudanzas.Models;
 
 namespace Mudanzas.Models
 {

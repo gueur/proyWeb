@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mudanzas.Models.Auth;
+using Mudanzas.Models;
 using Mudanzas.Helpers.Requests;
 using Mudanzas.Services.IServices;
 using Mudanzas.Data;
@@ -26,11 +27,14 @@ namespace Mudanzas.Models
         {
            return bd.obtenerSede(alias);
         }
-        // PUT POST/SEDE
-        public Sede altaSede(Sede sede)
-        {
-            Sede nuevaSede = new Sede(sede.alias, sede.ciudad, sede.estado, sede.latitud, sede.longitud, sede.tipoSede, sede.idAdministrador, sede.pertenece);
-            bd.guardarSede(nuevaSede);
+         // POST CAMION
+        public Sede RegistraSede(SedeRequest registro)
+        { 
+            //TODO: modificarle parametros
+            Sede nuevaSede = new Sede (registro.id, registro.alias, registro.ciudad, registro.estado, registro.latitud, registro.longitud, registro.tipoSede, registro.pertenece );
+            //bd.RegistrarCamion(nuevoCamion);
+             
+            bd.RegistraSede(nuevaSede);
             return nuevaSede;
         }
     }

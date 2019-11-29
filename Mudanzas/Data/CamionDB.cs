@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Mudanzas.Models.Auth;
+using Mudanzas.Services.IServices;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Mudanzas.Models;
-using Mudanzas.Models.Auth;
-using Mudanzas.Services.IServices;
-using System.Data.SqlClient;
 
 namespace Mudanzas.Data
 {
@@ -71,8 +71,19 @@ namespace Mudanzas.Data
             }
             return camion;
         }
-        // GET/ID Sede
-     
+        // POST/ID Camion
+        public Camion RegistrarCamion(Camion camion)
+        {
+            // string query = $"INSERT INTO CAMION (nombre, primerApellido, segundoApellido, telefono, correoElectronico, direccion, codigoVerificacion) VALUES('{cliente.getNombre()}', '{cliente.getPrimerApellido()}', '{cliente.getSegundoApellido()}', '{cliente.getTelefono()}', '{cliente.getCorreoElectronico()}', '{cliente.getDireccion()}', '{cliente.getToken()}')";
+            string query = $"SP_ALTACAMIONES '{camion.tipoCamion}',{camion.kilometraje}, {camion.capacidadPeso}, '{camion.tipoCombustible}',{camion.volumen}, '{camion.placas}'";
+            using (SqlCommand com = new SqlCommand(query, db))
+            {
+                com.ExecuteNonQuery();
+                db.Close();
+            }
+            return camion;
+        }
+
 
     }
 }
