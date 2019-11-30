@@ -21,11 +21,16 @@ namespace Mudanzas.Controllers
         {
             modelo = new ModeloReservacion();
         }
-        // POST: api/Camion
-        [HttpPost]
-        public void postExceso([FromBody]ExcesoRequest folio)
+        // POST: api/Reservacion
+         [HttpPost]
+         public void postExceso([FromBody]ExcesoRequest folio)
+         {
+            modelo.postExceso(folio);
+         }
+        [HttpGet]
+        public string postExceso()
         {
-           modelo.postExceso(folio);
+            return "holi";
         }
 
 
