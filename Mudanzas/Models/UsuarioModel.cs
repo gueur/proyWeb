@@ -6,11 +6,8 @@ using Mudanzas.Helpers.Requests;
 using Mudanzas.Services.IServices;
 using Mudanzas.Data;
 using Mudanzas.Helpers;
-<<<<<<< HEAD
 using Mudanzas.Models;
-=======
 using Mudanzas.Helpers.Templates;
->>>>>>> Agregado template de correos
 
 namespace Mudanzas.Models
 {

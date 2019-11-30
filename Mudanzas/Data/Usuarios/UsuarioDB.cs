@@ -51,7 +51,7 @@ namespace Mudanzas.Data
                         string segundoApellido = reader.GetString(3);
                         string telefono = reader.GetString(5);
                         //string token = reader.GetString(7);
-                        user = new Chofer(id, nombre, primerApellido, segundoApellido, telefono, correoElectronico);
+                        user = new Chofer(id, nombre, primerApellido, segundoApellido, telefono, correoElectronico,password);
                     }
                 }
                 finally
@@ -119,7 +119,7 @@ namespace Mudanzas.Data
                         string telefono = reader.GetString(5);
                         string sede = reader.GetString(8);
                         //string token = reader.GetString(7);
-                        user = new Administrador(id, nombre, primerApellido, segundoApellido, telefono, correoElectronico, sede);
+                        user = new Administrador(id, nombre, primerApellido, segundoApellido, telefono, correoElectronico, sede, password);
                     }
                 }
                 finally
