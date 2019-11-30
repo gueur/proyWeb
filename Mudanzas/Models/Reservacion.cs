@@ -16,7 +16,18 @@ namespace Mudanzas.Models
         private string tipoCamion { get; set; }
         private string idCliente { get; set; }
 
-       
+        public Reservacion(int folio, string sedeOrigen, string sedeDestino, string fechaReservacion, string tipoCamion, string idCliente)
+        {
+            this.setFolio(folio);
+            this.setSedeDestino(sedeDestino);
+            this.setSedeOrigen(sedeOrigen);
+            //TODO: Podria tener error
+            this.setFechaReservacion(DateTime.Parse(fechaReservacion));
+            this.setTipoCamion(tipoCamion);
+            this.setIdCliente(idCliente);
+        }
+
+
         public int getFolio()
         {
             return this.folio ;

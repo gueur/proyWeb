@@ -9,5 +9,7 @@ namespace Mudanzas.Services.IServices
     interface IReservacionDB
     {
         void postExceso(int folio);
+        List<Reservacion> GetReservaciones();
+        List<Reservacion> GetReservacionesPendientes();
     }
 }

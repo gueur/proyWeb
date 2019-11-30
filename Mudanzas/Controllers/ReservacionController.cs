@@ -28,11 +28,13 @@ namespace Mudanzas.Controllers
             modelo.postExceso(folio);
             return folio;
          }
-        [HttpGet]
-        public string postExceso()
+
+         [HttpGet]
+        public List<Reservacion> obtenerReservaciones()
         {
-            return "holi";
+            return modelo.obtenerReservaciones();
         }
+
 
 
 

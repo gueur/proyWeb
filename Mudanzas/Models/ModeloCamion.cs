@@ -31,7 +31,7 @@ namespace Mudanzas.Models
         public Camion RegistrarNuevoCamion(CamionRequest registro)
         { 
             //TODO: modificarle parametros
-            Camion nuevoCamion = new Camion(1,registro.kilometraje, registro.kilometrajeUltimoServicio, registro.capacidadPeso, registro.tipoCamion, registro.tipoCombustible, registro.volumen, registro.placas);
+            Camion nuevoCamion = new Camion("1",registro.kilometraje, registro.kilometrajeUltimoServicio, registro.capacidadPeso, registro.tipoCamion, registro.tipoCombustible, registro.volumen, registro.placas);
             //bd.RegistrarCamion(nuevoCamion);
              bd.RegistrarCamion(nuevoCamion);
             return nuevoCamion;
