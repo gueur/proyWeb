@@ -23,9 +23,10 @@ namespace Mudanzas.Controllers
         }
         // POST: api/Reservacion
          [HttpPost]
-         public void postExceso([FromBody]ExcesoRequest folio)
+         public ExcesoRequest postExceso([FromBody]ExcesoRequest folio)
          {
             modelo.postExceso(folio);
+            return folio;
          }
         [HttpGet]
         public string postExceso()
