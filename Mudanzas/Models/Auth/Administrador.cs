@@ -12,7 +12,7 @@ namespace Mudanzas.Models.Auth
         {
             return Rol.Admin;
         }
-        public Administrador(int id, string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string sede)
+        public Administrador(string id, string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string sede)
         {
             this.setId(id);
             this.setNombre(nombre);

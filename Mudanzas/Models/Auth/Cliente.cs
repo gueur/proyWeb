@@ -19,7 +19,7 @@ namespace Mudanzas.Models.Auth
         {
 
         }
-        public Cliente(int id, string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string password, string direccion, string ciudad)
+        public Cliente(string id, string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string password, string direccion, string ciudad)
         {
             this.setId(id);
             this.setNombre(nombre);

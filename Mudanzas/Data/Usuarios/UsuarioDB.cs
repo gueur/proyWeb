@@ -44,7 +44,7 @@ namespace Mudanzas.Data
                     if (reader.HasRows)
                     {
                         reader.Read();
-                        int id = reader.GetInt32(0);
+                        string id = reader.GetString(0);
                         string nombre = reader.GetString(1);
                         string primerApellido = reader.GetString(2);
                         string segundoApellido = reader.GetString(3);
@@ -76,7 +76,7 @@ namespace Mudanzas.Data
                     if (reader.HasRows)
                     {
                         reader.Read();
-                        int id = reader.GetInt32(0);
+                        string id = reader.GetString(0);
                         string nombre = reader.GetString(1);
                         string primerApellido = reader.GetString(2);
                         string segundoApellido = reader.GetString(3);
@@ -111,7 +111,7 @@ namespace Mudanzas.Data
                     if (reader.HasRows)
                     {
                         reader.Read();
-                        int id = reader.GetInt32(0);
+                        string id = reader.GetString(0);
                         string nombre = reader.GetString(1);
                         string primerApellido = reader.GetString(2);
                         string segundoApellido = reader.GetString(3);

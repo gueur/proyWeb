@@ -50,7 +50,7 @@ namespace Mudanzas.Controllers
         [HttpPost("/jwt")]
         public async Task<ActionResult<string>> JWT()
         {
-            Cliente user = new Cliente(12, "Manuel", "Villegas", "Leyva", "6674714557", "humbapumbamv@gmail.com","12345678", "Esta casa perrona", "Sinaloa");// { id= 12 , correoElectronico="HumbaPumbaMV@gmail.com", direccion="Calle de la tundra # 2416 col prados del sol", nombre="Manuel", primerApellido="Villegas", segundoApellido="Leyva", telefono="6674714557"};
+            Cliente user = new Cliente("12", "Manuel", "Villegas", "Leyva", "6674714557", "humbapumbamv@gmail.com","12345678", "Esta casa perrona", "Sinaloa");// { id= 12 , correoElectronico="HumbaPumbaMV@gmail.com", direccion="Calle de la tundra # 2416 col prados del sol", nombre="Manuel", primerApellido="Villegas", segundoApellido="Leyva", telefono="6674714557"};
             string jwt = JWTHelper.convertoUsuarioToJWT(user);
 
             return jwt;

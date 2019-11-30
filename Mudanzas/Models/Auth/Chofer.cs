@@ -15,7 +15,7 @@ namespace Mudanzas.Models.Auth
         {
 
         }
-        public Chofer(int id, string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico)
+        public Chofer(string id, string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico)
         {
             this.setId(id);
             this.setNombre(nombre);

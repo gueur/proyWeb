@@ -8,7 +8,7 @@ namespace Mudanzas.Models.Auth
     public abstract class Usuario
     {
 
-        private int id { get; set; }
+        private string id { get; set; }
         private string nombre { get; set; }
         private string primerApellido { get; set; }
         private string segundoApellido { get; set; }
@@ -27,11 +27,11 @@ namespace Mudanzas.Models.Auth
             this.token = token;
         }
 
-        public int getId()
+        public string getId()
         {
             return this.id;
         }
-        public void setId(int id)
+        public void setId(string id)
         {
             this.id= id;
         }
