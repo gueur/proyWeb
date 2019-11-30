@@ -39,9 +39,9 @@ namespace Mudanzas.Models
         public Chofer RegistrarChofer(RegistroChoferRequest choferRequest)
         {
             //TODO: Checar esto
-            Chofer chofer = new Chofer();
+            Chofer chofer = new Chofer(choferRequest.nombre, choferRequest.primerApellido, choferRequest.segundoApellido, choferRequest.telefono, choferRequest.correoElectronico, EncryptHelper.encryptString(choferRequest.password));
             db.RegistrarChofer(chofer);
-            return null;
+            return chofer;
         }
 
         public Usuario AutenticarCliente(LoginRequest usuarioLogin)
@@ -64,6 +64,13 @@ namespace Mudanzas.Models
             }
             return null;
         }
+
+        public Administrador RegistrarAdmin(RegistroAdminRequest adminRequest) {
+            Administrador admin = new Administrador(adminRequest.nombre, adminRequest.primerApellido, adminRequest.segundoApellido, adminRequest.telefono, adminRequest.correoElectronico, adminRequest.idSede, EncryptHelper.encryptString(adminRequest.password));
+            db.RegistrarAdmin(admin);
+            return admin;
+        }
+
 
         public Cliente RegistrarCliente(int idProspecto)
         {

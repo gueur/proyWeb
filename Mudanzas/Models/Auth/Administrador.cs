@@ -12,7 +12,28 @@ namespace Mudanzas.Models.Auth
         {
             return Rol.Admin;
         }
-        public Administrador(string id, string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string sede)
+
+        public Administrador( string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string sede)
+        {
+            this.setNombre(nombre);
+            this.setPrimerApellido(primerApellido);
+            this.setSegundoApellido(segundoApellido);
+            this.setTelefono(telefono);
+            this.setCorreoElectronico(correoElectronico);
+            this.setSede(sede);
+        }
+
+        public Administrador(string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string sede,string password)
+        {
+            this.setNombre(nombre);
+            this.setPrimerApellido(primerApellido);
+            this.setSegundoApellido(segundoApellido);
+            this.setTelefono(telefono);
+            this.setCorreoElectronico(correoElectronico);
+            this.setSede(sede);
+            this.setPassword(password);
+        }
+        public Administrador(string id, string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string sede, string password)
         {
             this.setId(id);
             this.setNombre(nombre);
@@ -21,6 +42,7 @@ namespace Mudanzas.Models.Auth
             this.setTelefono(telefono);
             this.setCorreoElectronico(correoElectronico);
             this.setSede(sede);
+            this.setPassword(password);
         }
 
         public string getSede()

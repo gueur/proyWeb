@@ -44,6 +44,14 @@ namespace Mudanzas.Controllers
             }
             return Unauthorized();
         }
+
+        [HttpPost("/admin/registro")]
+        public async Task<ActionResult<Administrador>> RegistrarAdmin([FromBody] RegistroAdminRequest registroRequest)
+        {
+            Administrador admin = modelo.RegistrarAdmin(registroRequest);
+            return admin;
+        }
+
         [HttpPost("/cliente/login")]
         public async Task<ActionResult<LoginResponse>> DoClienteLogin([FromBody]LoginRequest login)
         {

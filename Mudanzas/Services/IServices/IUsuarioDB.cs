@@ -20,6 +20,7 @@ namespace Mudanzas.Services.IServices
         Cliente VerificacionProspecto(Cliente prospecto);
         Cliente MoverProspectoACliente(int prospectoId);
         Usuario RegistrarChofer(Chofer chofer);
+        Usuario RegistrarAdmin(Administrador admin);
     }
 }
   

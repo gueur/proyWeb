@@ -160,12 +160,45 @@ namespace Mudanzas.Data
             return cliente;
         }
 
-        public Usuario RegistrarChofer(Chofer chofer)
+        public Usuario RegistrarChofer(Chofer usuario)
         {
-            //TODO: Implementar esto
-            //string query 
-            throw new NotImplementedException();
+            string query = "registraUsuarios";
+            using (SqlCommand com = new SqlCommand(query, db))
+            {
+                com.CommandType = CommandType.StoredProcedure;
+                com.Parameters.Add(new SqlParameter("@nombre", usuario.getNombre()));
+                com.Parameters.Add(new SqlParameter("@primerApellido", usuario.getPrimerApellido()));
+                com.Parameters.Add(new SqlParameter("@segundoApellido", usuario.getSegundoApellido()));
+                com.Parameters.Add(new SqlParameter("@contraseña", usuario.getPassword()));
+                com.Parameters.Add(new SqlParameter("@telefono", usuario.getTelefono()));
+                com.Parameters.Add(new SqlParameter("@correoElectronico", usuario.getCorreoElectronico()));
+                com.Parameters.Add(new SqlParameter("@tipo", "CH"));
+                com.ExecuteNonQuery();
+                db.Close();
+            }
+            return usuario;
         }
+
+
+        public Usuario RegistrarAdmin(Administrador usuario)
+        {
+            string query = "registraUsuarios";
+            using (SqlCommand com = new SqlCommand(query, db))
+            {
+                com.CommandType = CommandType.StoredProcedure;
+                com.Parameters.Add(new SqlParameter("@nombre", usuario.getNombre()));
+                com.Parameters.Add(new SqlParameter("@primerApellido", usuario.getPrimerApellido()));
+                com.Parameters.Add(new SqlParameter("@segundoApellido", usuario.getSegundoApellido()));
+                com.Parameters.Add(new SqlParameter("@contraseña", usuario.getPassword()));
+                com.Parameters.Add(new SqlParameter("@telefono",  usuario.getTelefono()));
+                com.Parameters.Add(new SqlParameter("@correoElectronico", usuario.getCorreoElectronico()));
+                com.Parameters.Add(new SqlParameter("@tipo", "AD"));
+                com.ExecuteNonQuery();
+                db.Close();
+            }
+            return usuario;
+        }
+
 
         public Cliente MoverProspectoACliente(int prospectoId)
         {
@@ -213,5 +246,6 @@ namespace Mudanzas.Data
             //TODO: Modificar el regreso
             return null;
         }
+
     }
 }
