@@ -33,6 +33,12 @@ namespace Mudanzas.Models
             return null;
         }
 
+        public List<Prospecto> GetProspectos()
+        {
+            List<Prospecto> prospectos = db.GetProspectos();
+            return prospectos;
+        }
+
         public Chofer RegistrarChofer(RegistroChoferRequest choferRequest)
         {
             //TODO: Checar esto

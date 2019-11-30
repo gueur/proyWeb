@@ -8,6 +8,8 @@ namespace Mudanzas.Services.IServices
 {
     interface IUsuarioDB
     {
+
+        List<Prospecto> GetProspectos(); 
         Chofer AutorizarChofer(string correoElectronico, string password);
         Cliente AutorizarCliente(string correoElectronico, string password);
         Administrador AutorizarAdministrador(string correoElectronico, string password);

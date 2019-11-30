@@ -7,7 +7,6 @@ namespace Mudanzas.Helpers.Requests
 {
     public class ReservacionRequest
     {
-        public int folio { get; set; }
         public string sedeOrigen { get; set; }
         public string sedeDestino { get; set; }
         public string fechaReservacion { get; set; }

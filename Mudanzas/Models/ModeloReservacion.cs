@@ -25,5 +25,12 @@ namespace Mudanzas.Models
             bd.postExceso(registro.folio);
         }
 
+        public List<Reservacion> obtenerReservaciones()
+        {
+            List<Reservacion> reservaciones = bd.GetReservaciones();
+            
+            return reservaciones;
+
+        }
     }
 }

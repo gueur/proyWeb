@@ -27,7 +27,7 @@ namespace Mudanzas.Data
                 {
                     while (reader.Read())
                     {
-                        int id = reader.GetInt32(0);
+                        string id = reader.GetString(0);
                         decimal kilometraje = reader.GetDecimal(1);
                         decimal kilometrajeUltimoServicio = reader.GetDecimal(2);
                         decimal capacidadPeso = reader.GetDecimal(3);
@@ -56,7 +56,7 @@ namespace Mudanzas.Data
                 {
                     while (reader.Read())
                     {
-                        int id = reader.GetInt32(0);
+                        string  id = reader.GetString(0);
                         decimal kilometraje = reader.GetDecimal(1);
                         decimal kilometrajeUltimoServicio = reader.GetDecimal(2);
                         decimal capacidadPeso = reader.GetDecimal(3);

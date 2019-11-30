@@ -247,5 +247,31 @@ namespace Mudanzas.Data
             return null;
         }
 
+        public List<Prospecto> GetProspectos()
+        {
+
+            List<Prospecto> prospectos = new List<Prospecto>();
+
+            using (SqlCommand com = new SqlCommand($"SELECT * FROM Prospecto where codigoVerificacion is null", db))
+            {
+                SqlDataReader reader = com.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        int id = reader.GetInt32(0);
+                        string nombre = reader.GetString(1);
+                        string primerApellido = reader.GetString(2);
+                        string segundoApellido = reader.GetString(3);
+                        string telefono= reader.GetString(4);
+                        string  direccion= reader.GetString(5);
+                        string correoElectronico = reader.GetString(6);
+                        prospectos.Add(new Prospecto(id, nombre, primerApellido, segundoApellido, telefono, direccion, correoElectronico));
+                    }
+                }
+                reader.Close();
+            }
+            return prospectos;
+        }
     }
 }

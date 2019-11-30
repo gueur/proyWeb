@@ -70,6 +70,13 @@ namespace Mudanzas.Controllers
 
             return cliente;
         }
+        [HttpGet("/prospecto")]
+        public async Task<ActionResult<List<ProspectoResponse>>> GetProspectos()
+        {
+            List<Prospecto> prospectos = modelo.GetProspectos();
+            return ProspectoResponse.ConvertProspectosToResponse(prospectos);
+        }
+
         //Metodo para verificar que no es un robot y que proceda
         [HttpPost("/prospecto/verificar")]
         public async Task<ActionResult<Usuario>> VerificarRegistro([FromBody]VerificacionRequest verificacion)

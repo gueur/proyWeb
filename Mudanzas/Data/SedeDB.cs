@@ -20,7 +20,7 @@ namespace Mudanzas.Data
         {
             //TODO: Obtener todas las Sedes
             //Sede sede = List<Sede>;
-            List<Sede> sede = new List<Sede>();
+            List<Sede> sedes = new List<Sede>();
             using (SqlCommand com = new SqlCommand($"SELECT * FROM Sede",db))
             { 
                 SqlDataReader reader = com.ExecuteReader();
@@ -36,12 +36,12 @@ namespace Mudanzas.Data
                         double longitud = reader.GetDouble(5);
                         string tipoSede = reader.GetString(6);
                         int pertence = reader.GetInt32(7);
-                        sede.Add(new Sede(id, alias, ciudad, estado, latitud, longitud, tipoSede, pertence));
+                        sedes.Add(new Sede(id, alias, ciudad, estado, latitud, longitud, tipoSede, pertence));
                     }
                 }   
                 reader.Close();
             }
-            return sede;
+            return sedes;
         }
 
         // GET/ID Sede

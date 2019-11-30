@@ -7,7 +7,7 @@ namespace Mudanzas.Models
 {
     public class Camion
     {
-        public Camion(int id, decimal kilometraje, decimal kilometrajeUltimoServicio, decimal capacidadPeso, string tipoCamion,string tipoCombustible, decimal volumen, string placas)
+        public Camion(string id, decimal kilometraje, decimal kilometrajeUltimoServicio, decimal capacidadPeso, string tipoCamion,string tipoCombustible, decimal volumen, string placas)
         {
             this.id = id;
             this.kilometraje = kilometraje;
@@ -17,9 +17,8 @@ namespace Mudanzas.Models
             this.tipoCombustible = tipoCombustible;
             this.volumen = volumen;
             this.placas = placas;
-
         }
-        public int id { get; set; }
+        public string id { get; set; }
         public decimal kilometraje { get; set; }
         public decimal kilometrajeUltimoServicio { get; set; }
         public decimal capacidadPeso { get; set; }
