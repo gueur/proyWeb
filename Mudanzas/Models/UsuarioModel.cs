@@ -47,9 +47,9 @@ namespace Mudanzas.Models
             return chofer;
         }
 
-        public Usuario AutenticarCliente(LoginRequest usuarioLogin)
+        public Usuario AutenticarCliente(string correoElectronico, string password)
         {
-            Cliente cliente= db.AutorizarCliente(usuarioLogin.correoElectronico, usuarioLogin.password);
+            Cliente cliente= db.AutorizarCliente(correoElectronico, password);
             if (cliente != null)
             {
                 cliente.setToken(JWTHelper.convertoUsuarioToJWT(cliente));
@@ -58,9 +58,9 @@ namespace Mudanzas.Models
             return null;
         }
 
-        public Usuario AutenticarAdmin(LoginRequest usuarioLogin)
+        public Usuario AutenticarAdmin(string correoElectronico, string password)
         {
-            Administrador admin= db.AutorizarAdministrador(usuarioLogin.correoElectronico, usuarioLogin.password);
+            Administrador admin= db.AutorizarAdministrador(correoElectronico, password);
             if(admin!=null){
                 admin.setToken(JWTHelper.convertoUsuarioToJWT(admin));
                 return admin;
@@ -68,8 +68,8 @@ namespace Mudanzas.Models
             return null;
         }
 
-        public Administrador RegistrarAdmin(RegistroAdminRequest adminRequest) {
-            Administrador admin = new Administrador(adminRequest.nombre, adminRequest.primerApellido, adminRequest.segundoApellido, adminRequest.telefono, adminRequest.correoElectronico, adminRequest.idSede, EncryptHelper.encryptString(adminRequest.password));
+        public Administrador RegistrarAdmin(string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string idSede, string password) {
+            Administrador admin = new Administrador(nombre, primerApellido, segundoApellido, telefono, correoElectronico, idSede, EncryptHelper.encryptString(password));
             db.RegistrarAdmin(admin);
             return admin;
         }
@@ -80,10 +80,10 @@ namespace Mudanzas.Models
             Cliente c = db.MoverProspectoACliente(idProspecto);
             return c;
         }
-        public Cliente RegistrarNuevoCliente(RegistroRequest registro)
+        public Cliente RegistrarNuevoCliente(string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string direccion)
         {
             //TODO: modificarle parametros
-            Cliente nuevoCliente= new Cliente(registro.nombre, registro.primerApellido, registro.segundoApellido, registro.telefono, registro.correoElectronico, registro.direccion, $"{new Random().Next(10000000, 99999999)}");
+            Cliente nuevoCliente= new Cliente(nombre, primerApellido, segundoApellido, telefono, correoElectronico, direccion, $"{new Random().Next(10000000, 99999999)}");
             db.RegistrarProspecto(nuevoCliente);
             string email =  UsuarioEmailTemplate.bienvenidoProspecto($"{nuevoCliente.getNombre()} {nuevoCliente.getPrimerApellido()}", nuevoCliente.getToken(), "http://www.proyweb.com.mx");
             EmailHelper.sendEmail(nuevoCliente.getCorreoElectronico(), $"{nuevoCliente.getNombre()} {nuevoCliente.getPrimerApellido()}", email);

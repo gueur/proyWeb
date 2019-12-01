@@ -73,7 +73,7 @@ namespace Mudanzas.Controllers
         [HttpPost]
         public async Task<ActionResult<SedeRequest>> SedeRegistro([FromBody]SedeRequest sedee)
         {
-            Sede sede = modelo.RegistraSede(sedee);
+            Sede sede = modelo.RegistraSede(sedee.id, sedee.alias, sedee.ciudad, sedee.estado, sedee.latitud, sedee.longitud, sedee.tipoSede, sedee.pertenece);
             if (sede != null)
             {
                 return new SedeRequest(sede);

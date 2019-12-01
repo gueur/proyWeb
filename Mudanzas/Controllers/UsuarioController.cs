@@ -36,7 +36,7 @@ namespace Mudanzas.Controllers
         [HttpPost("/admin/login")]
         public async Task<ActionResult<LoginResponse>> DoAdminLogin([FromBody]LoginRequest login)
         {
-            Usuario usuario = modelo.AutenticarAdmin(login);
+            Usuario usuario = modelo.AutenticarAdmin(login.correoElectronico, login.password);
             if (usuario != null)
             {
                 return new LoginResponse(usuario);
@@ -48,14 +48,14 @@ namespace Mudanzas.Controllers
         [HttpPost("/admin/registro")]
         public async Task<ActionResult<Administrador>> RegistrarAdmin([FromBody] RegistroAdminRequest registroRequest)
         {
-            Administrador admin = modelo.RegistrarAdmin(registroRequest);
+            Administrador admin = modelo.RegistrarAdmin(registroRequest.nombre, registroRequest.primerApellido, registroRequest.segundoApellido, registroRequest.password, registroRequest.correoElectronico, registroRequest.telefono, registroRequest.idSede);
             return admin;
         }
 
         [HttpPost("/cliente/login")]
         public async Task<ActionResult<LoginResponse>> DoClienteLogin([FromBody]LoginRequest login)
         {
-            Usuario usuario = modelo.AutenticarCliente(login);
+            Usuario usuario = modelo.AutenticarCliente(login.correoElectronico, login.password);
             if (usuario != null)
             {
                 return new LoginResponse(usuario);
@@ -66,7 +66,7 @@ namespace Mudanzas.Controllers
         [HttpPost("/prospecto/registro")]
         public async Task<ActionResult<Usuario>> ProspectoRegistro([FromBody]RegistroRequest registro)
         {
-           Cliente cliente =  modelo.RegistrarNuevoCliente(registro);
+           Cliente cliente =  modelo.RegistrarNuevoCliente(registro.nombre, registro.primerApellido, registro.segundoApellido, registro.telefono, registro.correoElectronico, registro.direccion);
 
             return cliente;
         }
