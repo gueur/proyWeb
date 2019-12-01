@@ -40,7 +40,7 @@ namespace Mudanzas.Controllers
         [HttpPost]
         public async Task<ActionResult<Camion>> CamionRegistro([FromBody]CamionRequest registro)
         {
-            Camion camion = modelo.RegistrarNuevoCamion(registro);
+            Camion camion = modelo.RegistrarNuevoCamion(registro.kilometraje, registro.kilometrajeUltimoServicio, registro.capacidadPeso, registro.tipoCamion, registro.tipoCombustible, registro.volumen, registro. placas);
 
             return camion;
         }
