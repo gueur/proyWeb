@@ -21,9 +21,9 @@ namespace Mudanzas.Models
             db = new UsuarioDB();
         }
         //TODO: Agregar encriptado a las contrasenas
-        public Usuario AutenticarChofer(LoginRequest usuarioLogin)
+        public Usuario AutenticarChofer(string correoElectronico, string password)
         {
-            Chofer chofer = db.AutorizarChofer(usuarioLogin.correoElectronico, usuarioLogin.password);
+            Chofer chofer = db.AutorizarChofer(correoElectronico, password);
             if (chofer != null)
             {
                 chofer.setToken(JWTHelper.convertoUsuarioToJWT(chofer));
@@ -39,10 +39,10 @@ namespace Mudanzas.Models
             return prospectos;
         }
 
-        public Chofer RegistrarChofer(RegistroChoferRequest choferRequest)
+        public Chofer RegistrarChofer(string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string password)
         {
             //TODO: Checar esto
-            Chofer chofer = new Chofer(choferRequest.nombre, choferRequest.primerApellido, choferRequest.segundoApellido, choferRequest.telefono, choferRequest.correoElectronico, EncryptHelper.encryptString(choferRequest.password));
+            Chofer chofer = new Chofer(nombre, primerApellido, segundoApellido, telefono, correoElectronico, EncryptHelper.encryptString(password));
             db.RegistrarChofer(chofer);
             return chofer;
         }

@@ -19,7 +19,7 @@ namespace Mudanzas.Controllers
         [HttpPost("/chofer/login")]
         public async Task<ActionResult<LoginResponse>> DoChoferLogin([FromBody]LoginRequest login)
         {
-            Usuario usuario = modelo.AutenticarChofer(login);
+            Usuario usuario = modelo.AutenticarChofer(login.correoElectronico, login.password);
             if (usuario != null)
             {
                 return new LoginResponse(usuario);
@@ -29,7 +29,7 @@ namespace Mudanzas.Controllers
         [HttpPost("/chofer/registro")]
         public async Task<ActionResult<Chofer>> RegistrarChofer([FromBody] RegistroChoferRequest registroRequest)
         {
-            Chofer chofer = modelo.RegistrarChofer(registroRequest);
+            Chofer chofer = modelo.RegistrarChofer(registroRequest.nombre, registroRequest.primerApellido, registroRequest.segundoApellido, registroRequest.telefono, registroRequest.correoElectronico, registroRequest.password);
             return chofer;
         }
 

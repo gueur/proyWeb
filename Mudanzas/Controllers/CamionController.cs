@@ -16,7 +16,7 @@ namespace Mudanzas.Controllers
     [ApiController]
     public class CamionController : ControllerBase
     {
-        ModeloCamion modelo;
+        ModeloCamion modelo;    
         public CamionController()
         {
             modelo = new ModeloCamion();

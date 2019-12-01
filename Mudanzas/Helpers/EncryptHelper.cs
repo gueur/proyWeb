@@ -20,10 +20,11 @@ namespace Mudanzas.Helpers
             }
         }
 
+        //TODO: Checar metodo
         public static bool checkStrings(string encryptedString, string nonEncrytedString)
         {
             string encryptNonencryptedString = encryptString(nonEncrytedString);
-            return checkStrings(encryptedString, encryptNonencryptedString);
+            return encryptedString.Equals(encryptNonencryptedString);
         }
 
 

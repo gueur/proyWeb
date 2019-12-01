@@ -9,7 +9,7 @@ namespace Mudanzas.Models.Auth
 
         private int id { get; set; }
         private string nombre { get; set; }
-        private string primerApellido { get; set; }
+        private string PrimerApellido { get; set; }
         private string segundoApellido { get; set; }
         private string password { get; set; }
         private string telefono { get; set; }
@@ -63,11 +63,11 @@ namespace Mudanzas.Models.Auth
 
         public string getPrimerApellido()
         {
-            return this.primerApellido;
+            return this.PrimerApellido;
         }
         public void setPrimerApellido(string primerApellido)
         {
-            this.primerApellido = primerApellido;
+            this.PrimerApellido = primerApellido;
         }
 
         public string getSegundoApellido()
