@@ -28,10 +28,10 @@ namespace Mudanzas.Models
             return bd.obtenerCamion(id);
         }
         // POST CAMION
-        public Camion RegistrarNuevoCamion(CamionRequest registro)
+        public Camion RegistrarNuevoCamion(decimal kilometraje, decimal kilometrajeUltimoServicio, decimal capacidadPeso, string tipoCamion, string tipoCombustible, decimal volumen, string placas)
         { 
             //TODO: modificarle parametros
-            Camion nuevoCamion = new Camion("1",registro.kilometraje, registro.kilometrajeUltimoServicio, registro.capacidadPeso, registro.tipoCamion, registro.tipoCombustible, registro.volumen, registro.placas);
+            Camion nuevoCamion = new Camion("1",kilometraje, kilometrajeUltimoServicio, capacidadPeso, tipoCamion, tipoCombustible, volumen, placas);
             //bd.RegistrarCamion(nuevoCamion);
              bd.RegistrarCamion(nuevoCamion);
             return nuevoCamion;

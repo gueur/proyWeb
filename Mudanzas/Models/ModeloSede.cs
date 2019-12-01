@@ -34,10 +34,10 @@ namespace Mudanzas.Models
            return bd.obtenerSede(alias);
         }
          // POST CAMION
-        public Sede RegistraSede(SedeRequest registro)
+        public Sede RegistraSede(int id, string alias, string ciudad, string estado, double latitud, double longitud, string tipoSede, int pertenece)
         { 
             //TODO: modificarle parametros
-            Sede nuevaSede = new Sede (registro.id, registro.alias, registro.ciudad, registro.estado, registro.latitud, registro.longitud, registro.tipoSede, registro.pertenece );
+            Sede nuevaSede = new Sede (id, alias, ciudad, estado, latitud, longitud, tipoSede, pertenece );
             //bd.RegistrarCamion(nuevoCamion);
              
             bd.RegistraSede(nuevaSede);
