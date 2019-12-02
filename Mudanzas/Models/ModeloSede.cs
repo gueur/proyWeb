@@ -9,16 +9,18 @@ using Mudanzas.Data;
 using Mudanzas.Helpers;
 using System;  
 using System.IO;  
-using System.Net;  
-
+using System.Net;
+using Mudanzas.Services;
 namespace Mudanzas.Models
 {
     public class ModeloSede
     {
         private ISedeDB bd;
+        private GoogleService googleService;
         public ModeloSede()
         {
             bd = new SedeDB();
+            googleService = new GoogleService();
         }
         // GET ALIAS
         public List<Sede> obtenerSedes()
@@ -34,36 +36,31 @@ namespace Mudanzas.Models
            return bd.obtenerSede(alias);
         }
          // POST CAMION
-        public Sede RegistraSede(int id, string alias, string ciudad, string estado, double latitud, double longitud, string tipoSede, int pertenece)
+        public async Task<Sede> RegistraSede(int id, string alias, string ciudad, string estado, double latitud, double longitud, string tipoSede, int pertenece)
         { 
             //TODO: modificarle parametros
             Sede nuevaSede = new Sede (id, alias, ciudad, estado, latitud, longitud, tipoSede, pertenece );
-            //bd.RegistrarCamion(nuevoCamion);
-             
-            bd.RegistraSede(nuevaSede);
+            //bd.RegistrarCamion(nuevoCamion); 
+            nuevaSede = bd.RegistraSede(nuevaSede);
 
             List<Sede> listaSedes = bd.obtenerSedes();
-            foreach(Sede sede in listaSedes){
-                
+            List<DistanciaSede> distancias = new List<DistanciaSede>();
+            
+            foreach (Sede sede in listaSedes)
+            {
+
                 // Logica para sacar la Distancia 
                 // Agregar en tabla DistanciaSede.
                 // Agregar a table como bulkInsert
-                
-            
+                DistanciaSede distancia= await googleService.GetDistanciaFromMaps(nuevaSede, sede);
+                if (distancia != null)
+                {
+                    distancias.Add(distancia);
+                }
             }
-             // Create a request for the URL.   
-            WebRequest request = WebRequest.Create(
-              "https://docs.microsoft.com");
-            // If required by the server, set the credentials.  
-            request.Credentials = CredentialCache.DefaultCredentials;
-            
-            // Get the response.  
-            WebResponse response = request.GetResponse();
-            // Display the status.  
-            Console.WriteLine(((HttpWebResponse)response).StatusDescription);
-            
-            
-               
+
+            bd.GuardarDistancias(distancias);
+
             return nuevaSede;
         }
     }
