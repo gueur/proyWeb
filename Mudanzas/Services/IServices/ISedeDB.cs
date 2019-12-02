@@ -11,5 +11,6 @@ namespace Mudanzas.Services.IServices
         Sede obtenerSede(string alias);
         Sede putSede();
         Sede RegistraSede(Sede sede);
+        bool GuardarDistancias(List<DistanciaSede> distancias);
     }
 }

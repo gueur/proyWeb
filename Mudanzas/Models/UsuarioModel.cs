@@ -49,7 +49,7 @@ namespace Mudanzas.Models
 
         public Usuario AutenticarCliente(string correoElectronico, string password)
         {
-            Cliente cliente= db.AutorizarCliente(correoElectronico, password);
+            Cliente cliente= db.AutorizarCliente(correoElectronico, EncryptHelper.encryptString(password));
             if (cliente != null)
             {
                 cliente.setToken(JWTHelper.convertoUsuarioToJWT(cliente));

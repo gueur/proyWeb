@@ -11,7 +11,10 @@ using Newtonsoft.Json.Linq;
 using Mudanzas.Helpers.Requests;
 using System;  
 using System.IO;  
-using System.Net; 
+using System.Net;
+using Newtonsoft.Json;
+
+using System.Net.Http;
 
 namespace Mudanzas.Controllers
 {
@@ -41,39 +44,32 @@ namespace Mudanzas.Controllers
         }
         // GET: api/Sede/NAV
         [HttpGet("prueba/cacatua")]
-        public string cacas()
+        public async Task<ActionResult<Google>> cacas()
         {
-            // Create a request for the URL.   
-            WebRequest request = WebRequest.Create(
-              "https://maps.googleapis.com/maps/api/distancematrix/json?origins=24.762946,-107.71&destinations=24.789236,-107.40&mode=transitg&key=AIzaSyCdck7BKZxfVoN_6eY2wJsZcec4ZhleSWM");
-            // If required by the server, set the credentials.  
-            request.Credentials = CredentialCache.DefaultCredentials;
-            
-            // Get the response.  
-            WebResponse response = request.GetResponse();
-            // Display the status.  
+
+            Google distancia = new Google();
+
             string texto = " ";
-            using (Stream dataStream = response.GetResponseStream())
+
+            using (var client = new HttpClient())
             {
-                // Open the stream using a StreamReader for easy access.  
-                StreamReader reader = new StreamReader(dataStream);
-                // Read the content.  
-                string responseFromServer = reader.ReadToEnd();
-                // Display the content.  
-                Console.WriteLine(responseFromServer);
+                var result = await client.GetAsync("https://maps.googleapis.com/maps/api/distancematrix/json?origins=24.762946,-107.71&destinations=24.789236,-107.40&mode=transitg&key=AIzaSyCdck7BKZxfVoN_6eY2wJsZcec4ZhleSWM");
+                string tt = await result.Content.ReadAsStringAsync();
+                tt = tt.Replace("\n", "");
+                tt = tt.Replace("\"", "'");
+                var d = JsonConvert.DeserializeObject<JObject>(tt);
+                JsonSerializer serializer = new JsonSerializer();
+                distancia = (Google)serializer.Deserialize(new JTokenReader(d), typeof(Google));
+
             }
-            
-            // Close the response.  
-            response.Close();
-          
-            return texto;
+            return distancia;
         }
         
         // POST: api/Sede
         [HttpPost]
-        public async Task<ActionResult<SedeRequest>> SedeRegistro([FromBody]SedeRequest sedee)
+        public async Task<ActionResult<SedeRequest>> SedeRegistro([FromBody]SedeRequest sedeRequest)
         {
-            Sede sede = modelo.RegistraSede(sedee.id, sedee.alias, sedee.ciudad, sedee.estado, sedee.latitud, sedee.longitud, sedee.tipoSede, sedee.pertenece);
+            Sede sede = await  modelo.RegistraSede(sedeRequest.id, sedeRequest.alias, sedeRequest.ciudad, sedeRequest.estado, sedeRequest.latitud, sedeRequest.longitud, sedeRequest.tipoSede, sedeRequest.pertenece);
             if (sede != null)
             {
                 return new SedeRequest(sede);

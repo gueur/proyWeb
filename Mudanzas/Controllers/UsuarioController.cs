@@ -19,7 +19,7 @@ namespace Mudanzas.Controllers
         [HttpPost("/chofer/login")]
         public async Task<ActionResult<LoginResponse>> DoChoferLogin([FromBody]LoginRequest login)
         {
-            Usuario usuario = modelo.AutenticarChofer(login.correoElectronico, login.password);
+            Usuario usuario = modelo.AutenticarChofer(login.correoElectronico, EncryptHelper.encryptString(login.password));
             if (usuario != null)
             {
                 return new LoginResponse(usuario);
@@ -29,14 +29,14 @@ namespace Mudanzas.Controllers
         [HttpPost("/chofer/registro")]
         public async Task<ActionResult<Chofer>> RegistrarChofer([FromBody] RegistroChoferRequest registroRequest)
         {
-            Chofer chofer = modelo.RegistrarChofer(registroRequest.nombre, registroRequest.primerApellido, registroRequest.segundoApellido, registroRequest.telefono, registroRequest.correoElectronico, registroRequest.password);
+            Chofer chofer = modelo.RegistrarChofer(registroRequest.nombre, registroRequest.primerApellido, registroRequest.segundoApellido, registroRequest.telefono, registroRequest.correoElectronico, EncryptHelper.encryptString(registroRequest.password));
             return chofer;
         }
 
         [HttpPost("/admin/login")]
         public async Task<ActionResult<LoginResponse>> DoAdminLogin([FromBody]LoginRequest login)
         {
-            Usuario usuario = modelo.AutenticarAdmin(login.correoElectronico, login.password);
+            Usuario usuario = modelo.AutenticarAdmin(login.correoElectronico, EncryptHelper.encryptString(login.password));
             if (usuario != null)
             {
                 return new LoginResponse(usuario);
@@ -48,14 +48,14 @@ namespace Mudanzas.Controllers
         [HttpPost("/admin/registro")]
         public async Task<ActionResult<Administrador>> RegistrarAdmin([FromBody] RegistroAdminRequest registroRequest)
         {
-            Administrador admin = modelo.RegistrarAdmin(registroRequest.nombre, registroRequest.primerApellido, registroRequest.segundoApellido, registroRequest.password, registroRequest.correoElectronico, registroRequest.telefono, registroRequest.idSede);
+            Administrador admin = modelo.RegistrarAdmin(registroRequest.nombre, registroRequest.primerApellido, registroRequest.segundoApellido, EncryptHelper.encryptString(registroRequest.password), registroRequest.correoElectronico, registroRequest.telefono, registroRequest.idSede);
             return admin;
         }
 
         [HttpPost("/cliente/login")]
         public async Task<ActionResult<LoginResponse>> DoClienteLogin([FromBody]LoginRequest login)
         {
-            Usuario usuario = modelo.AutenticarCliente(login.correoElectronico, login.password);
+            Usuario usuario = modelo.AutenticarCliente(login.correoElectronico, EncryptHelper.encryptString(login.password));
             if (usuario != null)
             {
                 return new LoginResponse(usuario);
