@@ -9,7 +9,8 @@ namespace Mudanzas.Services.IServices
     interface IUsuarioDB
     {
 
-        List<Prospecto> GetProspectos(); 
+        List<Prospecto> GetProspectos();
+        Usuario BuscarUsuarioCorreo(string correoElectronico);
         Chofer AutorizarChofer(string correoElectronico, string password);
         Cliente AutorizarCliente(string correoElectronico, string password);
         Administrador AutorizarAdministrador(string correoElectronico, string password);
@@ -18,9 +19,9 @@ namespace Mudanzas.Services.IServices
         Usuario BuscarUsuarioNombre(string nombre, string apellido);
         Usuario BuscarUsuarioId(string id);
         Usuario actualizarUsuario(Usuario user);
-        Cliente RegistrarProspecto(Cliente prospecto);
+        Prospecto RegistrarProspecto(Prospecto prospecto);
         Cliente VerificacionProspecto(Cliente prospecto);
-        Cliente MoverProspectoACliente(int prospectoId);
+        Cliente MoverProspectoACliente(int prospectoId, bool aceptado);
         Usuario RegistrarChofer(Chofer chofer);
         Usuario RegistrarAdmin(Administrador admin);
     }

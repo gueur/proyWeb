@@ -23,7 +23,7 @@ namespace Mudanzas.Models
         //TODO: Agregar encriptado a las contrasenas
         public Usuario AutenticarChofer(string correoElectronico, string password)
         {
-            Chofer chofer = db.AutorizarChofer(correoElectronico, password);
+            Chofer chofer = db.AutorizarChofer(correoElectronico, EncryptHelper.encryptString(password));
             if (chofer != null)
             {
                 chofer.setToken(JWTHelper.convertoUsuarioToJWT(chofer));
@@ -60,7 +60,7 @@ namespace Mudanzas.Models
 
         public Usuario AutenticarAdmin(string correoElectronico, string password)
         {
-            Administrador admin= db.AutorizarAdministrador(correoElectronico, password);
+            Administrador admin= db.AutorizarAdministrador(correoElectronico, EncryptHelper.encryptString(password));
             if(admin!=null){
                 admin.setToken(JWTHelper.convertoUsuarioToJWT(admin));
                 return admin;
@@ -75,20 +75,27 @@ namespace Mudanzas.Models
         }
 
 
-        public Cliente RegistrarCliente(int idProspecto)
+        public Cliente RegistrarCliente(int idProspecto, bool aceptado)
         {
-            Cliente c = db.MoverProspectoACliente(idProspecto);
+            Cliente c = db.MoverProspectoACliente(idProspecto,aceptado);
+            if (c!=null && c.getCorreoElectronico()!=null)
+            {
+                string token = JWTHelper.convertTokenUrl(c.getCorreoElectronico());
+                db.OlvidoPassword(c.getCorreoElectronico(), token);
+                string nombre = $"{c.getNombre()} {c.getPrimerApellido()}";
+                EmailHelper.sendEmail(c.getCorreoElectronico(), nombre, UsuarioEmailTemplate.prospectoAceptado(nombre, $"https://proyweb-1570850601368.web.app/", token));
+            }
             return c;
         }
-        public Cliente RegistrarNuevoCliente(string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string direccion)
+        public Prospecto RegistrarNuevoCliente(string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string direccion)
         {
             //TODO: modificarle parametros
-            Cliente nuevoCliente= new Cliente(nombre, primerApellido, segundoApellido, telefono, correoElectronico, direccion, $"{new Random().Next(10000000, 99999999)}");
-            db.RegistrarProspecto(nuevoCliente);
-            string email =  UsuarioEmailTemplate.bienvenidoProspecto($"{nuevoCliente.getNombre()} {nuevoCliente.getPrimerApellido()}", nuevoCliente.getToken(), "http://www.proyweb.com.mx");
-            EmailHelper.sendEmail(nuevoCliente.getCorreoElectronico(), $"{nuevoCliente.getNombre()} {nuevoCliente.getPrimerApellido()}", email);
+            Prospecto prospecto= new Prospecto(0,nombre, primerApellido, segundoApellido, telefono, direccion, correoElectronico,$"{new Random().Next(10000000, 99999999)}");
+            db.RegistrarProspecto(prospecto);
+            string email =  UsuarioEmailTemplate.bienvenidoProspecto($"{prospecto.getNombre()} {prospecto.getPrimerApellido()}", prospecto.getCodigoVerificacion(), "https://proyweb-1570850601368.web.app/");
+            EmailHelper.sendEmail(prospecto.getCorreoElectronico(), $"{prospecto.getNombre()} {prospecto.getPrimerApellido()}", email);
             // EmailHelper.sendSMSCodigoVerificacion(nuevoCliente.getTelefono(), nuevoCliente.getToken());
-            return nuevoCliente;
+            return prospecto;
         }
         public Cliente VerificarProspecto(string codigoVerificacion)
         {
@@ -113,9 +120,14 @@ namespace Mudanzas.Models
 
         public void OlvidoPassword(string correoElectronico)
         {
-            string token = JWTHelper.convertTokenUrl(correoElectronico);
-            db.OlvidoPassword(correoElectronico, token);
-            
+            Usuario usuario = db.BuscarUsuarioCorreo(correoElectronico);
+            if (usuario!=null) { 
+                string token = JWTHelper.convertTokenUrl(correoElectronico);
+                db.OlvidoPassword(correoElectronico, token);
+                string nombre = $"{usuario.getNombre()} {usuario.getPrimerApellido()}";
+                EmailHelper.sendEmail(usuario.getCorreoElectronico(), nombre, UsuarioEmailTemplate.cambioContrasena(nombre, $"https://proyweb-1570850601368.web.app/", token));
+            }
+
         }
     }
 }

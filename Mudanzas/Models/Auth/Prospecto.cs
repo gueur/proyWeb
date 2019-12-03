@@ -26,6 +26,17 @@ namespace Mudanzas.Models.Auth
             this.setCorreoElectronico(correoElectronico);
             this.setDireccion(direccion);
         }
+        public Prospecto(int id, string nombre, string primerApellido, string segundoApellido, string telefono, string direccion, string correoElectronico, string codigoVerificacion)
+        {
+            this.setId(id);
+            this.setNombre(nombre);
+            this.setPrimerApellido(primerApellido);
+            this.setSegundoApellido(segundoApellido);
+            this.setTelefono(telefono);
+            this.setCorreoElectronico(correoElectronico);
+            this.setDireccion(direccion);
+            this.setCodigoVerificacion(codigoVerificacion);
+        }
 
         public string getDireccion()
         {

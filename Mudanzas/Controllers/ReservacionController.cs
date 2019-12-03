@@ -22,7 +22,7 @@ namespace Mudanzas.Controllers
             modelo = new ModeloReservacion();
         }
         // POST: api/Reservacion
-         [HttpPost("/exceso")]
+         [HttpPost("exceso")]
          public ExcesoRequest postExceso([FromBody]ExcesoRequest excesoRequest)
          {
             modelo.postExceso(excesoRequest.folio);
@@ -34,9 +34,6 @@ namespace Mudanzas.Controllers
         {
             return modelo.obtenerReservaciones();
         }
-
-
-
 
     }
 }

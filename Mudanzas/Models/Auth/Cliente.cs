@@ -19,7 +19,7 @@ namespace Mudanzas.Models.Auth
         {
 
         }
-        public Cliente(string id, string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string password, string direccion, string ciudad)
+        public Cliente(string id, string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string password, string direccion, string token )
         {
             this.setId(id);
             this.setNombre(nombre);
@@ -28,11 +28,10 @@ namespace Mudanzas.Models.Auth
             this.setTelefono(telefono);
             this.setCorreoElectronico(correoElectronico);
             this.setDireccion(direccion);
-            this.setCiudad(ciudad);
             this.setPassword(password);
         }
 
-        public Cliente( string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico,string password ,string direccion, string ciudad)
+        public Cliente( string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico,string password ,string direccion)
         {
             this.setNombre(nombre);
             this.setPrimerApellido(primerApellido);
@@ -40,7 +39,6 @@ namespace Mudanzas.Models.Auth
             this.setTelefono(telefono);
             this.setCorreoElectronico(correoElectronico);
             this.setDireccion(direccion);
-            this.setCiudad(ciudad);
             this.setPassword(password);
         }
         public Cliente(string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string direccion)
@@ -52,16 +50,7 @@ namespace Mudanzas.Models.Auth
             this.setCorreoElectronico(correoElectronico);
             this.setDireccion(direccion);
         }
-         public Cliente(string nombre, string primerApellido, string segundoApellido, string telefono, string correoElectronico, string direccion, string token)
-        {
-            this.setNombre(nombre);
-            this.setPrimerApellido(primerApellido);
-            this.setSegundoApellido(segundoApellido);
-            this.setTelefono(telefono);
-            this.setCorreoElectronico(correoElectronico);
-            this.setDireccion(direccion);
-            this.setToken(token);
-        }
+
 
         public string getDireccion()
         {

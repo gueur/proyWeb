@@ -132,9 +132,9 @@ namespace Mudanzas.Data
             return user;
         }
 
-        public Cliente RegistrarProspecto(Cliente cliente)
+        public Prospecto RegistrarProspecto(Prospecto prospecto)
         {
-            string query = $"INSERT INTO PROSPECTO (nombre, primerApellido, segundoApellido, telefono, correoElectronico, direccion, codigoVerificacion) VALUES('{cliente.getNombre()}', '{cliente.getPrimerApellido()}', '{cliente.getSegundoApellido()}', '{cliente.getTelefono()}', '{cliente.getCorreoElectronico()}', '{cliente.getDireccion()}', '{cliente.getToken()}')";
+            string query = $"INSERT INTO PROSPECTO (nombre, primerApellido, segundoApellido, telefono, correoElectronico, direccion, codigoVerificacion) VALUES('{prospecto.getNombre()}', '{prospecto.getPrimerApellido()}', '{prospecto.getSegundoApellido()}', '{prospecto.getTelefono()}', '{prospecto.getCorreoElectronico()}', '{prospecto.getDireccion()}', '{prospecto.getCodigoVerificacion()}')";
             using (SqlCommand com = new SqlCommand(query, db))
             {
                 //TODO: Agregar verificar de usuario (prospecto)
@@ -143,7 +143,7 @@ namespace Mudanzas.Data
                 db.Close();
             }
 
-            return cliente;
+            return prospecto;
         }
 
         public Cliente VerificacionProspecto(Cliente cliente) 
@@ -200,17 +200,41 @@ namespace Mudanzas.Data
         }
 
 
-        public Cliente MoverProspectoACliente(int prospectoId)
+        public Cliente MoverProspectoACliente(int prospectoId, bool aceptado)
         {
-            Cliente c = new Cliente();
+            Cliente c = null;
             using (SqlCommand com = new SqlCommand("altaClientes", db))
             {
                 //TODO: Verificar si existe (regresar algo para saber si hizo el cambio o no)
                 com.CommandType = CommandType.StoredProcedure;
                 com.Parameters.Add(new SqlParameter("@idProspecto", prospectoId));
-                var f = com.ExecuteNonQuery();
+                com.Parameters.Add(new SqlParameter("@aceptado", aceptado? 1: 0));
+                com.Parameters.Add(new SqlParameter("@correoElectronico", SqlDbType.VarChar,128));
+                com.Parameters.Add(new SqlParameter("@nombre", SqlDbType.VarChar,32));
+                com.Parameters.Add(new SqlParameter("@primerApellido", SqlDbType.VarChar,32));
+                com.Parameters.Add(new SqlParameter("@segundoApellido", SqlDbType.VarChar,32));
+                com.Parameters["@correoElectronico"].Direction = ParameterDirection.Output;
+                com.Parameters["@nombre"].Direction = ParameterDirection.Output;
+                com.Parameters["@primerApellido"].Direction = ParameterDirection.Output;
+                com.Parameters["@segundoApellido"].Direction = ParameterDirection.Output;
+                SqlDataReader reader = com.ExecuteReader();
+                if (reader.RecordsAffected > 0)
+                {
+                    c = new Cliente();
+                    try
+                    {
+                        c.setCorreoElectronico((string)com.Parameters["@correoElectronico"].Value);
+                        c.setNombre((string)com.Parameters["@nombre"].Value);
+                        c.setPrimerApellido((string)com.Parameters["@primerApellido"].Value);
+                        c.setSegundoApellido((string)com.Parameters["@segundoApellido"].Value);
+                    }catch(Exception e)
+                    {
+                        return c;
+                    }
+                    
+                 }
                 //TODO: Hacer la validacion si se hizo correctamente
-                db.Close();
+                //db.Close();
             }
 
             return c;
@@ -272,6 +296,30 @@ namespace Mudanzas.Data
                 reader.Close();
             }
             return prospectos;
+        }
+
+        public Usuario BuscarUsuarioCorreo(string correoElectronico)
+        {
+            Usuario usuario = null;
+            string query = $"SELECT TOP 1 u.id, u.nombre ,u.primerApellido, u.segundoApellido, u.contrasena, u.telefono, u.correoelectronico, u.token FROM USUARIO u where u.correoElectronico='{correoElectronico}'";
+            using (SqlCommand com = new SqlCommand( query, db))
+            {
+                SqlDataReader reader = com.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    string id = reader.GetString(0);
+                    string nombre = reader.GetString(1);
+                    string primerApellido = reader.GetString(2);
+                    string segundoApellido = reader.GetString(3);
+                    string telefono = reader.GetString(5);
+                    string correoElectronicoBD = reader.GetString(6);
+
+                    usuario = new Chofer(nombre,primerApellido,segundoApellido,telefono,correoElectronico);
+                }
+            }
+
+            return usuario;
         }
     }
 }
