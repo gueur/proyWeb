@@ -13,11 +13,11 @@
             return template;
         }
 
-        public static string prospectoAceptado(string nombre, string correo, string link)
+        public static string prospectoAceptado(string nombre, string link, string token)
         {
             string template = $"" +
                 $"<h2>Hola {nombre}</h2>, ¡Bienvenido a ProyWeb! <br> Actualmente posees una cuenta que te permitirá reservar servicios de mudanza. <br>" +
-                $"<h3> Para ingresar a tu cuenta introduce tu correo {correo} y contraseña.</h3><br>" +
+                $"<h3> Para ingresar a tu cuenta entra a <a href=\"{link}/cambiopass?token={token}\">Mudanzas Proyweb</a> y elige tu contraseña.</h3><br>" +
                 $"<h3>Atentamente, <br> el equipo de </h3>" +
                 $"<a href=\"{link}\">Mudanzas Proyweb</a>" +
             $"";
@@ -25,11 +25,11 @@
 
         }
 
-        public static string cambioContraseña(string nombre, string contraNueva, string link)
+        public static string cambioContrasena(string nombre, string link, string token)
         {
             string template = $"" +
-                $"<h2>Hola {nombre}</h2>, <br> Hemos reseteado tu contraseña de acceso a ProyWeb. <br> Tu nueva contraseña es: " +
-                $"<strong>{contraNueva}</strong><br>" +
+                $"<h2>Hola {nombre}</h2>, <br> Has pedido un reestablecimiento de tu contraseña de acceso a ProyWeb. <br> " +
+                $"<h3> Para cambiar la contraseña de acceso a tu cuenta entra a <a href=\"{link}/cambiopass?token={token}\">Mudanzas Proyweb</a> y elige tu nueva contraseña.</h3><br>" +
                 $"<h3>Atentamente, <br> el equipo de </h3>" +
                 $"<a href=\"{link}\">Mudanzas Proyweb</a>";
             return template;

@@ -8,5 +8,6 @@ namespace Mudanzas.Helpers.Requests
     public class HacerClienteRequest
     {
         public int prospectoId { get; set; }
+        public bool aceptado { get; set; }
     }
 }

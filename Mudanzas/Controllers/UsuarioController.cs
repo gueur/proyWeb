@@ -19,7 +19,7 @@ namespace Mudanzas.Controllers
         [HttpPost("/chofer/login")]
         public async Task<ActionResult<LoginResponse>> DoChoferLogin([FromBody]LoginRequest login)
         {
-            Usuario usuario = modelo.AutenticarChofer(login.correoElectronico, EncryptHelper.encryptString(login.password));
+            Usuario usuario = modelo.AutenticarChofer(login.correoElectronico, login.password);
             if (usuario != null)
             {
                 return new LoginResponse(usuario);
@@ -36,7 +36,7 @@ namespace Mudanzas.Controllers
         [HttpPost("/admin/login")]
         public async Task<ActionResult<LoginResponse>> DoAdminLogin([FromBody]LoginRequest login)
         {
-            Usuario usuario = modelo.AutenticarAdmin(login.correoElectronico, EncryptHelper.encryptString(login.password));
+            Usuario usuario = modelo.AutenticarAdmin(login.correoElectronico, login.password);
             if (usuario != null)
             {
                 return new LoginResponse(usuario);
@@ -55,7 +55,7 @@ namespace Mudanzas.Controllers
         [HttpPost("/cliente/login")]
         public async Task<ActionResult<LoginResponse>> DoClienteLogin([FromBody]LoginRequest login)
         {
-            Usuario usuario = modelo.AutenticarCliente(login.correoElectronico, EncryptHelper.encryptString(login.password));
+            Usuario usuario = modelo.AutenticarCliente(login.correoElectronico, login.password);
             if (usuario != null)
             {
                 return new LoginResponse(usuario);
@@ -64,11 +64,11 @@ namespace Mudanzas.Controllers
         }
 
         [HttpPost("/prospecto/registro")]
-        public async Task<ActionResult<Usuario>> ProspectoRegistro([FromBody]RegistroRequest registro)
+        public async Task<ActionResult<Prospecto>> ProspectoRegistro([FromBody]RegistroRequest registro)
         {
-           Cliente cliente =  modelo.RegistrarNuevoCliente(registro.nombre, registro.primerApellido, registro.segundoApellido, registro.telefono, registro.correoElectronico, registro.direccion);
+           Prospecto prospecto =  modelo.RegistrarNuevoCliente(registro.nombre, registro.primerApellido, registro.segundoApellido, registro.telefono, registro.correoElectronico, registro.direccion);
 
-            return cliente;
+            return prospecto;
         }
         [HttpGet("/prospecto")]
         public async Task<ActionResult<List<ProspectoResponse>>> GetProspectos()
@@ -92,7 +92,7 @@ namespace Mudanzas.Controllers
         {
 
             Cliente cliente = null;
-            cliente = modelo.RegistrarCliente(clienteRequest.prospectoId);
+            cliente = modelo.RegistrarCliente(clienteRequest.prospectoId,clienteRequest.aceptado);
             if (cliente != null)
             {
                 //Enviar correo
